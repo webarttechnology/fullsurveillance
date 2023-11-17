@@ -143,7 +143,7 @@
 
                 <div class="tab-pane fade show active" id="product-audio-video" role="tabpanel" aria-labelledby="product-audio-video-tab">
                     <div class="swiper product-tab-two-slider swiper-button-style swiper-button-style10">
-                        <div class="swiper-wrapper">
+                        <div class="swiper-wrapper   ">
                             <!--== Start Product Item ==-->
                             <div class="swiper-slide product-item">
                                 <a class="product-item-thumb" href="#">
