@@ -152,7 +152,7 @@
                                 </div>
                                 @endforeach
 
-                                <div class="col-12 col-lg-12 col-md-12">
+                                {{-- <div class="col-12 col-lg-12 col-md-12">
                                     <nav class="pagination-area mt-6 mb-6">
                                         <ul class="page-numbers justify-content-center">
                                             <li>
@@ -168,7 +168,7 @@
                                             </li>
                                         </ul>
                                     </nav>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </div>
