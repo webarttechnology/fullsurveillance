@@ -262,7 +262,7 @@
 <!--== End Product Quick Add Cart Modal ==-->
 
 <!--== Start Product Quick Add Cart Modal ==-->
-<aside class="product-action-modal modal fade" id="action-CompareModal" tabindex="-1" aria-hidden="true">
+{{-- <aside class="product-action-modal modal fade" id="action-CompareModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -283,7 +283,7 @@
             </div>
         </div>
     </div>
-</aside>
+</aside> --}}
 <!--== End Product Quick Add Cart Modal ==-->
 
 <!--== Start Sidebar Cart Menu ==-->
@@ -436,7 +436,7 @@
 <!-- Vendors JS -->
 <script src="{{ url('user/assets/js/vendor/modernizr-3.11.7.min.js') }}"></script>
 <script src="{{ url('user/assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ url('user/assets/js/vendor/jquery-migrate-3.3.2.min.js') }}"></script>
+{{-- <script src="{{ url('user/assets/js/vendor/jquery-migrate-3.3.2.min.js') }}"></script> --}}
 <script src="{{ url('user/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
 
 <!-- Plugins JS -->
@@ -447,5 +447,6 @@
 <script src="{{ url('user/assets/js/plugins/isotope.pkgd.min.js') }}"></script>
 <!-- Custom Main JS -->
 <script src="{{ url('user/assets/js/main.js') }}"></script>
+@yield('script')
 </body>
 </html>

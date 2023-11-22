@@ -1,11 +1,21 @@
+@php
+if(Auth::check() == true){
+    if(Auth::User()->roles()->first()->name == 'User'){
+        if(Auth::user()->status == 'Inactive'){
+            Auth::logout();
+        }
+    }
+}  
+@endphp
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title')</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="@yield('meta_desc')" content="">
+    <meta name="description" content="@yield('meta_desc')">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
     <!-- <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png"> -->
@@ -45,7 +55,6 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">English</button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownLang">
                                     <li class="dropdown-item active">English</li>
-                                    <li class="dropdown-item">Français</li>
                                 </ul>
                             </div>
                             <div class="header-info-dropdown">
@@ -53,7 +62,6 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">USD</button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownCurrency">
                                     <li class="dropdown-item active">USD</li>
-                                    <li class="dropdown-item">EUR</li>
                                 </ul>
                             </div>
                         </div>
@@ -66,8 +74,8 @@
                         <div class="col-auto">
                             <div class="header-logo-area">
                                 <a href="{{ url('/') }}">
-                                    <img class="logo-main" src="{{ url('user/assets/images/brand-logo/globe2.png') }}" width="42"  height="31" alt="Logo">
-                                    <img src="{{ url('user/assets/images/brand-logo/FSI logo png2.png') }}" alt="">
+                                    {{-- <img class="logo-main" src="{{ url('user/assets/images/brand-logo/globe2.png') }}" width="42"  height="31" alt="Logo"> --}}
+                                    <img src="{{ url('user/assets/images/brand-logo/fsc-logo.gif') }}" width="268px" height="42px" alt="logo">
                                 </a>
                             </div>
                         </div>
@@ -76,11 +84,10 @@
                                 <input class="form-control" type="text" id="search" placeholder="Search Products">
                                 <div class="header-search-box-categories">
                                     <select class="select-active">
-                                        <option>All Categories</option>
-                                        <option>Headphone</option>
-                                        <option>Video Camera</option>
-                                        <option>Digital Camera</option>
-                                        <option>Protable Speakers</option>
+                                        <option class="all">All Categories</option>
+                                        @foreach (App\Models\Category::where('status', 'Active')->get() as $item)
+                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <button type="submit" class="btn-src">
@@ -89,7 +96,11 @@
                             </form>
                         </div>
                         <div class="col-auto d-flex justify-content-end align-items-center">
-                            <a href="#" class="header-action-account">Login / SignUp</a>
+                            @if (Auth::check() == true)
+                            <a href="{{ url('/logout') }}" class="header-action-account">Logout</a>
+                            @else
+                            <a href="{{ url('/login-register') }}" class="header-action-account">Login / SignUp</a>
+                            @endif
                             <a class="header-action-wishlist" href="#">
                                 <i class="icon-heart"></i>
                             </a>
@@ -151,30 +162,16 @@
                                     <button class="vmenu-btn"><i class="icon fa fa-list-ul"></i> All Departments <i
                                             class="icon fa fa-angle-down"></i></button>
                                     <ul class="vmenu-content vmenu-content-none">
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm1.png') }}" alt="Icon"></span>
-                                                Headphone</a></li>
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm2.png') }}" alt="Icon"></span> Video
-                                                Game</a></li>
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm3.png') }}" alt="Icon"></span> Protable
-                                                Speakers</a></li>
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm4.png') }}" alt="Icon"></span> Digital
-                                                Camera</a></li>
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm5.png') }}" alt="Icon"></span> Gadgets</a>
-                                        </li>
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm6.png') }}" alt="#"></span> Home
-                                                Appliances</a></li>
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm7.png') }}" alt="Icon"></span> Audio
-                                                Record</a></li>
-                                        <li class="vmenu-item"><a href="#"> <span class="icon"><img
-                                                        src="{{ url('user/assets/images/icons/vm8.png') }}" alt="Icon"></span>
-                                                Computer/Laptop</a></li>
+                                        @foreach (App\Models\Category::where('status', 'Active')->get() as $item)
+                                        <li class="vmenu-item">
+                                            <a href="#"> 
+                                             <span class="icon">
+                                                <img src="{{ url($item->img ?? '#') }}" width="24px" height="24px" alt="Icon">
+                                              </span>
+                                               {{ $item->name }}
+                                            </a>
+                                          </li>
+                                         @endforeach
                                     </ul>
                                     <!-- menu content -->
                                 </div>
@@ -184,8 +181,9 @@
                                         </li>
                                         <li class="main-nav-item"><a class="main-nav-link" href="{{ url('/about-us') }}">About Us</a>
                                         </li>
-                                        <li class="main-nav-item has-submenu position-static"><a               class="main-nav-link"href="#">Shop</a>
-                                            <ul class="submenu-nav-mega">
+                                        <li class="main-nav-item has-submenu position-static">
+                                            <a class="main-nav-link"href="{{ url('/shop') }}">Shop</a>
+                                            {{-- <ul class="submenu-nav-mega">
                                                 <li class="submenu-nav-mega-item">
                                                     <ul>
                                                         <li><a class="submenu-nav-mega-link" href="#">NVR's and DVR's</a></li>
@@ -194,7 +192,7 @@
                                                         <li><a class="submenu-nav-mega-link" href="#">Intercom</a></li>
                                                     </ul>
                                                 </li>
-                                            </ul>
+                                            </ul> --}}
                                         </li>
                                         <li class="main-nav-item has-submenu"><a class="main-nav-link"
                                             href="{{ url('/service') }}">Services</a></li>

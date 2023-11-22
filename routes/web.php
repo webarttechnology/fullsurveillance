@@ -15,11 +15,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::controller(UserController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/about-us', 'about_us');
+    Route::get('/service', 'service');
+    Route::get('/contact', 'contact');
+    Route::get('/product', 'product');
+    Route::get('/shop', 'shop');
+    Route::get('/item/{id}', 'item');
 
-Route::get('/', [UserController::class, 'index']);
-Route::get('/about-us', [UserController::class, 'about_us']);
-Route::get('/service', [UserController::class, 'service']);
-Route::get('/contact', [UserController::class, 'contact']);
-Route::get('/product', [UserController::class, 'product']);
+
+
+    Route::get('/login-register', 'login_register');
+    Route::post('/register-action', 'register_action');
+    Route::post('/login-action', 'login_action');
+    Route::get('/logout', 'logout');
+});
+
+
+
+
 
 
