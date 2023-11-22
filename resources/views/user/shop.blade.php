@@ -66,8 +66,6 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="column-three" role="tabpanel" aria-labelledby="column-three-tab">
                             <div class="row mb-n6">
-
-
                                 @foreach ($product as $item)
                                  <div class="col-sm-6 col-lg-6 col-xl-4 mb-6">
                                     <!--== Start Product Item ==-->
@@ -83,7 +81,7 @@
                                             <button type="button" class="product-action-btn action-btn-compare" data-bs-toggle="modal" data-bs-target="#action-CompareModal">
                                                 <i class="icon-shuffle"></i>
                                             </button>
-                                            <button type="button" class="product-action-btn action-btn-quick-view" data-bs-toggle="modal" data-bs-target="#action-QuickViewModal">
+                                            <button type="button" class="product-action-btn action-btn-quick-view"  data-id="{{ $item->id }}">
                                                 <i class="icon-magnifier"></i>
                                             </button>
                                         </div>
@@ -124,8 +122,6 @@
                         </div>
                         <div class="tab-pane fade product-list-items" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
                             <div class="row row-cols-1 row-cols-sm-2 mb-n8">
-
-
                                 @foreach ($product as $item)
                                    <div class="col mb-8">
                                     <!--== Start Product Item ==-->
@@ -239,7 +235,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                         {{-- <div class="widget-item mb-0 p-0">
                             <div class="widget-banner product-banner-eight-item" data-bg-img="{{ url('user/assets/images/shop/banner/20.png') }}">
                                 <h5 class="product-banner-eight-desc text-primary">Sparing Sales</h5>
@@ -256,6 +251,5 @@
         </div>
     </div>
     <!--== End Product Area Wrapper ==-->
-
 </main>
 @endsection

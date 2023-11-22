@@ -154,7 +154,12 @@ class UserController extends Controller
         return Redirect::to('/');
     }
 
+    public function get_product_view(Request $request)
+    {
 
- 
+        $productView = Product::find($request->id);
+        return view('user.data.product-quick-view', compact('productView'))->render();
+    }
+
 
 }

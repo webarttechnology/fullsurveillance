@@ -137,73 +137,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="product-quick-view-content">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"><span>×</span></button>
-                    <div class="row row-gutter-0">
-                        <div class="col-lg-6">
-                            <div class="single-product-slider">
-                                <div class="single-product-thumb">
-                                    <div class="swiper single-product-quick-view-slider">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="thumb-item">
-                                                    <img src="{{ url('user/assets/images/brand-logo/cctv.png') }}" alt="Image" width="640" height="710">
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="thumb-item">
-                                                    <img src="{{ url('user/assets/images/brand-logo/cctv.png') }}" alt="Image" width="640" height="710">
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="thumb-item">
-                                                    <img src="{{ url('user/assets/images/brand-logo/cctv.png') }}" alt="Image" width="640" height="710">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Add Arrows -->
-                                        <div class="swiper-button-next"></div>
-                                        <div class="swiper-button-prev"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="product-detail-content mt-6 mt-lg-0">
-                                <h2 class="product-detail-title mt-n1 me-10">Android Television Super Salon New DGT -256</h2>
-                                <div class="product-detail-price">$160.00 - <span class="price-old">$260.00</span></div>
-                                <div class="product-detail-review">
-                                    <div class="product-detail-review-icon">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                    </div>
-                                    <p class="product-detail-review-show">( 1 Review )</p>
-                                </div>
-                                <p class="product-detail-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minimo veniam, quis nostrud exercitation ullamco laboris nisi.</p>
-                                <div class="mb-3">
-                                    <div class="pro-qty mb-2 mb-sm-0">
-                                        <input type="text" title="Quantity" value="01">
-                                    </div>
-                                    <button class="product-detail-cart-btn" type="button" data-bs-toggle="modal" data-bs-target="#action-CartAddModal">Add to cart</button>
-                                </div>
-                                <div>
-                                    <button type="button" class="product-detail-compare-btn" data-bs-toggle="modal" data-bs-target="#action-CompareModal">
-                                        <i class="icon icon-shuffle"></i> Compare
-                                    </button>
-                                    <button type="button" class="product-detail-wishlist-btn" data-bs-toggle="modal" data-bs-target="#action-WishlistModal">
-                                        <i class="icon icon-heart"></i> Add to wishlist
-                                    </button>
-                                </div>
-                                <ul class="product-detail-meta pt-6">
-                                    <li><span>SKU:</span> WX-256HG</li>
-                                    <li><span>Categories:</span> Home, Electronic</li>
-                                    <li><span>Tag</span> Electronic</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                      @include('user.data.product-quick-view')
                 </div>
             </div>
         </div>
@@ -448,5 +382,26 @@
 <!-- Custom Main JS -->
 <script src="{{ url('user/assets/js/main.js') }}"></script>
 @yield('script')
+
+<script>
+  $(function(){
+
+    $(document).on('click','.action-btn-quick-view',function(){
+        $.ajax({
+            type: 'POST',
+            url: '/get-product-view',
+            data: {id: $(this).data('id')},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                $('#action-QuickViewModal').modal('show');
+                $('.product-quick-view-content').html(data);
+            },
+        });
+    });
+
+  });
+</script>
 </body>
 </html>

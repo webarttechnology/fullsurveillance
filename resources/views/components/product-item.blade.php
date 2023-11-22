@@ -13,7 +13,7 @@
             {{-- <button type="button" class="product-action-btn action-btn-compare" data-bs-toggle="modal" data-bs-target="#action-CompareModal">
                 <i class="icon-shuffle"></i>
             </button> --}}
-            <button type="button" class="product-action-btn action-btn-quick-view" data-bs-toggle="modal" data-bs-target="#action-QuickViewModal">
+            <button type="button" class="product-action-btn action-btn-quick-view" data-id="{{ $item->id }}">
                 <i class="icon-magnifier"></i>
             </button>
         </div>

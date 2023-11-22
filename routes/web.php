@@ -29,6 +29,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/register-action', 'register_action');
     Route::post('/login-action', 'login_action');
     Route::get('/logout', 'logout');
+    Route::post('/get-product-view', 'get_product_view');
 });
 
 
