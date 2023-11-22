@@ -72,7 +72,7 @@
                                  <div class="col-sm-6 col-lg-6 col-xl-4 mb-6">
                                     <!--== Start Product Item ==-->
                                     <div class="product-item">
-                                        <a class="product-item-thumb" href="shop-single-product.html">
+                                        <a class="product-item-thumb" href="{{ url('item', $item->id) }}">
                                             <img src="{{ url($item->product_image[0]->img ?? '#') }}" width="270" height="264" alt="Image-HasTech">
                                         </a>
                                         {{-- <span class="badges">-10%</span> --}}
@@ -226,7 +226,6 @@
                         <div class="widget-item widget-item-one">
                             <h3 class="widget-two-title text-black">New products</h3>
                             <div class="widget-product-items">
-
                                 @foreach (App\Models\Product::orderBy('id', 'desc')->limit(3)->get() as $item)
                                 <a href="{{ url('item', $item->id) }}" class="widget-product-two-item">
                                     <div class="widget-product-two-thumb">
@@ -238,7 +237,6 @@
                                     </div>
                                 </a>
                                 @endforeach
-                                
                             </div>
                         </div>
 
