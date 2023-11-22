@@ -25,7 +25,6 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/item/{id}', 'item');
 
 
-
     Route::get('/login-register', 'login_register');
     Route::post('/register-action', 'register_action');
     Route::post('/login-action', 'login_action');
