@@ -195,9 +195,9 @@
                                 <span class="d-block pb-3"><b>Payment Methods</b></span>
                                 <div class="pay-top sin-payment">
                                     <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
-                                    <label for="payment-method-3">Cash on delivery </label>
+                                    <label for="payment-method-3">Stripe <img alt="" src="{{ url('user/assets/images/photos/stripe-logo.png') }}" width="35" height="23"></label>
                                     <div class="payment-box payment_method_bacs">
-                                        <p>Pay with cash upon delivery. </p>
+                                        <p>Pay with card. </p>
                                     </div>
                                 </div>
                                 <div class="pay-top sin-payment sin-payment-3">

@@ -267,7 +267,7 @@ $(function(){
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success:function(data){
-               console.log(data);
+              //  console.log(data);
               if(data.status == 'success'){
 
                    totalWishlistCount();
@@ -280,6 +280,7 @@ $(function(){
                   btnAction.removeClass('active-wishlist');
 
                   if(firstPathname == 'wishlist'){
+
                     btnAction.parent().parent().remove();
 
                     var item_count_wishlist = new Array();
@@ -291,12 +292,9 @@ $(function(){
                       $('.empty-wishlist').removeClass('d-none');
                       ToMoveScroll();
                     }
-
                   }
                 }
-
                 toastr.success(data.msg);
-
               }else if(data.status == 'error'){
                 toastr.error(data.msg);
               }
@@ -308,7 +306,6 @@ $(function(){
 
   function totalWishlistCount()
   {
-
       $.ajax({
         type: 'POST',
         url: '/total-wishlist-count',
@@ -319,7 +316,6 @@ $(function(){
             $('.wishlist-count-show').text(data);
         },
       });
-
   }
 
 
