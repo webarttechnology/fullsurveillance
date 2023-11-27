@@ -36,7 +36,18 @@ if(Auth::check() == true){
     <link rel="stylesheet" href="{{ url('user/assets/css/plugins/fancybox.min.css')}}">
     <link rel="stylesheet" href="{{ url('user/assets/css/plugins/nice-select.css')}}">
     <!-- Style CSS -->
+
+    {{-- Toast --}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <link rel="stylesheet" href="{{ url('user/assets/css/style.css')}}">
+    <style>
+         .active-wishlist {
+            background-color: #02327e !important;
+            border-color: #02327e !important;
+            color: #FFFFFF !important;
+         }
+    </style>
 </head>
 <body>
     <!--== Wrapper Start ==-->
@@ -74,8 +85,8 @@ if(Auth::check() == true){
                         <div class="col-auto">
                             <div class="header-logo-area">
                                 <a href="{{ url('/') }}">
-                                    {{-- <img class="logo-main" src="{{ url('user/assets/images/brand-logo/globe2.png') }}" width="42"  height="31" alt="Logo"> --}}
-                                    <img src="{{ url('user/assets/images/brand-logo/fsc-logo.gif') }}" width="268px" height="42px" alt="logo">
+                                    <img class="logo-main" src="{{ url('user/assets/images/brand-logo/fsi-eart.png') }}" width="55px"  height="auto" alt="Logo">
+                                    <img src="{{ url('user/assets/images/brand-logo/fsi-logo.png') }}" width="268px" height="42px" alt="logo">
                                 </a>
                             </div>
                         </div>
@@ -101,13 +112,13 @@ if(Auth::check() == true){
                             @else
                             <a href="{{ url('/login-register') }}" class="header-action-account">Login / SignUp</a>
                             @endif
-                            <a class="header-action-wishlist" href="#">
+                            <a class="header-action-wishlist header-action-cart" href="{{ url('wishlist') }}">
                                 <i class="icon-heart"></i>
+                                <span class="cart-count wishlist-count-show">{{ wishlist_count() }}</span>
                             </a>
-                            <button class="header-action-cart" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasWithCartSidebar" aria-controls="offcanvasWithCartSidebar">
+                            <button class="header-action-cart" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithCartSidebar" aria-controls="offcanvasWithCartSidebar">
                                 <i class="cart-icon icon-handbag"></i>
-                                <span class="cart-count">01</span>
+                                <span class="cart-count cart-count-show">{{ cart_count() }}</span>
                             </button>
                         </div>
                     </div>
@@ -119,10 +130,13 @@ if(Auth::check() == true){
                         <div class="col-auto">
                             <div class="header-logo-area">
                                 <a href="#">
-                                    <img class="logo-main" src="{{ url('user/assets/images/brand-logo/globe2.png') }}" width="42"
+                                    {{-- <img class="logo-main" src="{{ url('user/assets/images/brand-logo/globe2.png') }}" width="42"
                                         height="31" alt="Logo"> <img src="{{ url('user/assets/images/brand-logo/FSI logo png2.png')}}"
-                                        alt="">
-                                </a>
+                                        alt=""> --}}
+                                        <img class="logo-main" src="{{ url('user/assets/images/brand-logo/fsi-eart.png') }}" width="42"  height="31" alt="Logo">
+                                        <img src="{{ url('user/assets/images/brand-logo/fsi-logo.png') }}" width="268px" height="42px" alt="logo">
+                                    
+                                    </a>
                             </div>
                         </div>
                         <div class="col-auto">

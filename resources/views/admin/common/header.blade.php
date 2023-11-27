@@ -56,9 +56,42 @@
 
     <!-- editor -->
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+   <style>
+     .loading {
+	z-index: 20;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.loading-content {
+	position: absolute;
+	border: 8px solid #f3f3f3; 
+	border-top: 8px solid rgba(0, 0, 0, 0.9);
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	top: 40%;
+	left: 45%;
+	animation: spin .7s linear infinite;
+	}
+	
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+   </style>
 </head>
 <body class="ec-sidebar-fixed compact-spacing ec-sidebar-dark ec-header-dark ec-header-fixed" id="body">
 
+        {{-- Loading --}}
+    <div id="loading">
+        <div id="loading-content"></div>
+    </div>
+     
     <div class="wrapper">
         <!-- LEFT MAIN SIDEBAR -->
         <div class="ec-left-sidebar ec-bg-sidebar">

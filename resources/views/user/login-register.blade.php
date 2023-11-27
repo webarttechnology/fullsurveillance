@@ -99,6 +99,9 @@
                                 <input type="password" name="password" placeholder="Password">
                                 <span class="register-password-error text-danger"></span>
                                 </div>
+                                <div class="login-register-input">
+                                    <input type="password" name="password_confirmation" placeholder="Confirm Password">
+                                </div>
                                 {{-- <div class="login-register-paragraph">
                                     <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="login-register.html">privacy policy.</a></p>
                                 </div> --}}
@@ -157,11 +160,13 @@
 
                     if(data.status == 'success'){
 
-                        $('.register-success-msg').removeClass('d-none');
-                        $('.register-success-msg').text(data.msg);
+                        if(typeForm == 'register'){
+                            $('.register-success-msg').removeClass('d-none');
+                            $('.register-success-msg').text(data.msg);
+                        }
 
                         form.reset();
-
+                        
                         if(data.type == 'login'){
                             $('.login-success-msg').removeClass('d-none');
                             $('.login-success-msg').text(data.msg);
@@ -184,7 +189,7 @@
                 },
                 error:function(data){
 
-                    console.log(data.responseJSON.errors);
+                    // console.log(data.responseJSON.errors);
 
                     if(typeForm == 'register'){
                     if(data.responseJSON.errors.name){

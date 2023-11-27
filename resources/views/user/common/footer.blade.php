@@ -171,7 +171,7 @@
 <!--== End Product Quick Wishlist Modal ==-->
 
 <!--== Start Product Quick Add Cart Modal ==-->
-<aside class="product-action-modal modal fade" id="action-CartAddModal" tabindex="-1" aria-hidden="true">
+{{-- <aside class="product-action-modal modal fade" id="action-CartAddModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -192,7 +192,7 @@
             </div>
         </div>
     </div>
-</aside>
+</aside> --}}
 <!--== End Product Quick Add Cart Modal ==-->
 
 <!--== Start Product Quick Add Cart Modal ==-->
@@ -235,39 +235,7 @@
                     </div>
                 </div>
                 <div class="cart-content cart-content-padding">
-                    <ul>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="{{ url('user/assets/images/shop/s3.jpg')}}" alt="Image" width="70" height="67"></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Game Triger Finger New</a></h4>
-                                <span> 1 × <span class="price"> $12.00 </span></span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#/"><i class="pe-7s-trash icons"></i></a>
-                            </div>
-                        </li>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="{{ url('user/assets/images/shop/s4.jpg') }}" alt="Image" width="70" height="67"></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Android Smart Watch XAD0</a></h4>
-                                <span> 1 × <span class="price"> $59.90 </span></span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#/"><i class="pe-7s-trash icons"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="cart-total">
-                        <h4>Subtotal: <span>$71.90</span></h4>
-                    </div>
-                    <div class="cart-checkout-btn">
-                        <a class="cart-btn" href="#">view cart</a>
-                        <a class="checkout-btn" href="#">checkout</a>
-                    </div>
+                     @include('user.data.cart-data')
                 </div>
             </div>
         </div>
@@ -379,8 +347,13 @@
 <script src="{{ url('user/assets/js/plugins/jquery.nice-select.min.js') }}"></script>
 <script src="{{ url('user/assets/js/plugins/jquery.countdown.min.js') }}"></script>
 <script src="{{ url('user/assets/js/plugins/isotope.pkgd.min.js') }}"></script>
+
+{{-- Toast --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 <!-- Custom Main JS -->
 <script src="{{ url('user/assets/js/main.js') }}"></script>
+<script src="{{ url('user/assets/js/cart_script.js') }}"></script>
 @yield('script')
 
 <script>

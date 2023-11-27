@@ -1,6 +1,17 @@
 
 $(function(){
 
+
+    function showLoading() {
+        document.querySelector('#loading').classList.add('loading');
+        document.querySelector('#loading-content').classList.add('loading-content');
+      }
+      
+      function hideLoading() {
+        document.querySelector('#loading').classList.remove('loading');
+        document.querySelector('#loading-content').classList.remove('loading-content');
+      }
+
     function message(){
         toastr.options = {
             "closeButton": true,
@@ -25,6 +36,9 @@ $(function(){
         $('.save').submit(function(e){
         e.preventDefault();
           message();
+
+          showLoading();
+
           var url = $(this).attr('action');
           var method = $(this).attr('method');  
           var data = new FormData($(this)[0]);
@@ -37,7 +51,8 @@ $(function(){
             contentType: false,
             processData: false,
             dataType: 'json',
-            success: function (data) {       
+            success: function (data) {  
+                hideLoading();     
               if(data.status == 'success'){
 
                 if(data.type == 'store'){

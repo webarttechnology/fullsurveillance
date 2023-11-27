@@ -2,30 +2,15 @@
 @section('meta_desc', 'All product | full Surveilance')
 @extends('user.master.layout')
 @section('content')
+<style>
+.product-list-item .info-bottom {
+    padding-right: 0px !important;
+}
+.pro-qty input {
+  height: 35px !important;
+}
+</style>
 <main class="main-content">
-
-    <!--== Start Page Header Area Wrapper ==-->
-    {{-- <div class="page-header-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="page-header-content">
-                        <h2 class="page-header-title">Products</h2>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home //</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Products</li>
-                        </ol>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="page-header-thumb">
-                        <img src="assets/images/photos/page-title.png" alt="Image-HasTech" width="546" height="281">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!--== End Page Header Area Wrapper ==-->
 
     <!--== Start Product Area Wrapper ==-->
     <div class="product-area section-space">
@@ -74,8 +59,15 @@
                                             <img src="{{ url($item->product_image[0]->img ?? '#') }}" width="270" height="264" alt="Image-HasTech">
                                         </a>
                                         {{-- <span class="badges">-10%</span> --}}
+                                        @php
+                                            if(Auth::check()){
+                                               $wishlistCheck  = App\Models\Wishlist::where('product_id', $item->id)->where('user_id', Auth::id())->first();
+                                            }else{
+                                                $wishlistCheck = App\Models\Wishlist::where('product_id', $item->id)->where('uuid', Session::get('uuid'))->first();
+                                            }
+                                        @endphp
                                         <div class="product-item-action">
-                                            <button type="button" class="product-action-btn action-btn-wishlist" data-bs-toggle="modal" data-bs-target="#action-WishlistModal">
+                                            <button type="button" class="product-action-btn action-btn-wishlist {{ $wishlistCheck  ? 'active-wishlist' : '' }}" data-id="{{ $item->id }}">
                                                 <i class="icon-heart"></i>
                                             </button>
                                             <button type="button" class="product-action-btn action-btn-compare" data-bs-toggle="modal" data-bs-target="#action-CompareModal">
@@ -131,9 +123,22 @@
                                         </a>
                                         <div class="product-list-info">
                                             <h5 class="product-list-title"><a href="{{ url('item', $item->id) }}">{{ $item->name }}</a></h5>
-                                            <div class="info-bottom">
+                                            <div class="info-bottom pr-0">
                                                 <div class="product-list-price">${{ number_format($item->discount_price, 2) }}</div>
-                                                <button type="button" class="info-btn-cart" data-bs-toggle="modal" data-bs-target="#action-CartAddModal"><i class="icon-handbag"></i></button>
+
+                                                <div class="d-flex justify-content-end">
+                                                <div class="pro-qty {{  cart_count_per_product($item->id) > 0 ? '' : 'd-none' }}" data-id="{{ $item->id }}">
+                                                    <div class="dec qty-btn dec-cart">-</div>
+                                                    <input type="text" title="Quantity" class="count-product" data-id="{{ $item->id }}" data-amount="{{ $item->discount_price }}" value="{{ cart_count_per_product($item->id) }}">
+                                                    <div class="inc qty-btn inc-cart">+</div>
+                                                </div>
+                                                <button class="info-btn-cart add-cart {{  cart_count_per_product($item->id) > 0 ? 'd-none' : '' }} " type="button" data-id="{{ $item->id }}"><i class="icon-handbag"></i></button>
+                                             
+                                                </div>
+                                               
+
+                                          {{-- <button type="button" class="info-btn-cart" data-bs-toggle="modal" data-bs-target="#action-CartAddModal"><i class="icon-handbag"></i></button> --}}
+                                                
                                                 {{-- <div class="product-list-review-icon">
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>

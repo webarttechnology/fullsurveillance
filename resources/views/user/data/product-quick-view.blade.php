@@ -7,7 +7,6 @@
                                 <div class="single-product-thumb">
                                     <div class="swiper single-product-quick-view-slider">
                                         <div class="swiper-wrapper">
-
                                             @foreach ($productView->product_image as $item)
                                             <div class="swiper-slide">
                                                 <div class="thumb-item">
@@ -15,8 +14,6 @@
                                                 </div>
                                             </div>
                                             @endforeach
-                              
-                                            
                                         </div>
                                         <!-- Add Arrows -->
                                         <div class="swiper-button-next"></div>
@@ -41,11 +38,18 @@
                                 </div> --}}
                                 
                                 <div class="mb-3">
-                                    <div class="pro-qty mb-2 mb-sm-0">
+                                    {{-- <div class="pro-qty mb-2 mb-sm-0">
                                         <input type="text" title="Quantity" value="01">
                                     </div>
                                     <button class="product-detail-cart-btn" type="button" data-bs-toggle="modal" data-bs-target="#action-CartAddModal">Add to cart</button>
+                                --}}
+                                <div class="pro-qty {{  cart_count_per_product($productView->id) > 0 ? '' : 'd-none' }}" data-id="{{ $productView->id }}">
+                                    <div class="dec qty-btn dec-cart">-</div>
+                                    <input type="text" title="Quantity" class="count-product" data-id="{{ $productView->id }}" data-amount="{{ $productView->discount_price }}" value="{{ cart_count_per_product($productView->id) }}">
+                                    <div class="inc qty-btn inc-cart">+</div>
                                 </div>
+                                <button class="product-detail-cart-btn add-cart {{  cart_count_per_product($productView->id) > 0 ? 'd-none' : '' }} " type="button" data-id="{{ $productView->id }}">Add to cart</button>
+                              </div>
                                 {{-- <div>
                                     <button type="button" class="product-detail-compare-btn" data-bs-toggle="modal" data-bs-target="#action-CompareModal">
                                         <i class="icon icon-shuffle"></i> Compare

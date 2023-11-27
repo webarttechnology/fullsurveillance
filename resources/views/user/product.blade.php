@@ -120,11 +120,16 @@
                             nostrud exercitation ullamco laboris nisi.</p> --}}
 
                         <div class="mb-3">
-                            <div class="pro-qty">
-                                <input type="text" title="Quantity" value="01">
+                            {{-- <div class="pro-qty">
+                                <input type="text" title="Quantity" value="1">
+                            </div> --}}
+                            <div class="pro-qty {{  cart_count_per_product($product->id) > 0 ? '' : 'd-none' }}" data-id="{{ $product->id }}">
+                                    <div class="dec qty-btn dec-cart">-</div>
+                                    <input type="text" title="Quantity" class="count-product" data-id="{{ $product->id }}" data-amount="{{ $product->discount_price }}" value="{{ cart_count_per_product($product->id) }}">
+                                    <div class="inc qty-btn inc-cart">+</div>
                             </div>
-                            <button class="product-detail-cart-btn" type="button" data-bs-toggle="modal"
-                                data-bs-target="#action-CartAddModal">Add to cart</button>
+                            <button class="product-detail-cart-btn add-cart {{  cart_count_per_product($product->id) > 0 ? 'd-none' : '' }} " type="button" data-id="{{ $product->id }}">Add to cart</button>
+                       
                         </div>
                         <div>
                             <button type="button" class="product-detail-compare-btn" data-bs-toggle="modal"

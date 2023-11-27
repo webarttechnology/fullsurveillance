@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
+use App\Models\Cart;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
@@ -15,6 +18,11 @@ class UserController extends Controller
     
 
     public function index(){
+
+
+        // dd(cart_count());
+
+        // dd(Str::uuid());
 
         // dd(Auth::User()->roles()->first()->name);
 
@@ -61,9 +69,6 @@ class UserController extends Controller
     } 
 
 
-    
-    
-
     public function login_register(){
 
         if(Auth::check() == true){
@@ -79,7 +84,7 @@ class UserController extends Controller
             'name'          => 'required',
             'mobile'        => 'required|digits:10|unique:users,mobile',
             'email'         => 'required|unique:users,email|email',
-            'password'      => 'required|min:8',
+            'password'      => 'required|min:8|confirmed',
         ]);
 
         $data = [
@@ -134,6 +139,10 @@ class UserController extends Controller
                 ];
 
                 if(Auth::attempt($credentials) == true){
+
+                if(Cart::where('uuid', Session::get('uuid'))->count() > 0){
+                    Cart::where('uuid', Session::get('uuid'))->update(['user_id' => Auth::id(),  'uuid' => null ]);
+                }
                     
                 $url = url('/');
                 return response()->json(['status' => 'success', 'type' => 'login', 'url' => $url,'msg' => 'Your login successfully!']);
@@ -161,5 +170,11 @@ class UserController extends Controller
         return view('user.data.product-quick-view', compact('productView'))->render();
     }
 
+    public function chekout()
+    {
+        return view('user.check-out');
+    }
+
+    
 
 }

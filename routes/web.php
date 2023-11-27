@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartControler;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,12 +26,36 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/item/{id}', 'item');
 
 
-    Route::get('/login-register', 'login_register');
+    Route::get('/login-register', 'login_register')->name('login');
     Route::post('/register-action', 'register_action');
     Route::post('/login-action', 'login_action');
-    Route::get('/logout', 'logout');
     Route::post('/get-product-view', 'get_product_view');
+
+    Route::middleware(['auth', 'prevent-back-history'])->group(function () {
+        Route::get('/logout', 'logout');
+        Route::get('/chekout', 'chekout');
+    });
+
 });
+
+Route::controller(CartControler::class)->group(function () {
+    Route::post('/add-cart', 'add_cart');
+    Route::post('/update-remove-cart', 'update_remove_cart');
+    Route::post('/total-cart-count', 'total_cart_count');
+    Route::post('/refresh-cart', 'refresh_cart');
+    Route::get('/cart', 'cart');
+    Route::post('/sub-grand-total-cart', 'sub_grand_total_cart');
+
+
+
+    /////// Wishlist 
+    Route::post('/add-wishlist', 'add_wishlist');
+    Route::get('/wishlist', 'wishlist');
+    Route::post('/total-wishlist-count', 'total_wishlist_count');
+
+});
+
+
 
 
 
