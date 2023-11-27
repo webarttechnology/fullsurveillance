@@ -224,6 +224,28 @@
                             </div>
                         </li>
 
+                         <!-- Coupon -->
+                         <li class="has-sub {{ Request::segment(2) == 'coupon' ? 'active' : '' }}">
+                            <a class="sidenav-item-link" href="javascript:void(0)">
+                                <i class="mdi mdi-dns-outline"></i>
+                                <span class="nav-text">Coupon</span> <b class="caret"></b>
+                            </a>
+                            <div class="collapse">
+                                <ul class="sub-menu" id="product" data-parent="#sidebar-menu">
+                                    <li class="">
+                                        <a class="sidenav-item-link" href="{{ route('coupon.create') }}">
+                                            <span class="nav-text">Add</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a class="sidenav-item-link" href="{{ route('coupon.index') }}">
+                                            <span class="nav-text">List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
             </div>

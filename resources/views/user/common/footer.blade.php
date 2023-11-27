@@ -354,6 +354,7 @@
 <!-- Custom Main JS -->
 <script src="{{ url('user/assets/js/main.js') }}"></script>
 <script src="{{ url('user/assets/js/cart_script.js') }}"></script>
+<script src="{{ url('user/assets/js/checkout.js') }}"></script>
 @yield('script')
 
 <script>

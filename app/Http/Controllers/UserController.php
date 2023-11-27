@@ -170,10 +170,7 @@ class UserController extends Controller
         return view('user.data.product-quick-view', compact('productView'))->render();
     }
 
-    public function chekout()
-    {
-        return view('user.check-out');
-    }
+   
 
     
 

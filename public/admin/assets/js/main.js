@@ -156,4 +156,19 @@ $('.category').on('change',(function(e) {
 }));
 
 
+
+//////  Coupon type 
+
+$('.coupon-type').on('change',(function(e) {
+    e.preventDefault();
+    if($(this).val() == 'Percentage'){
+        $('.maximum_amount').show();
+    }else{
+        $('.maximum_amount').hide();
+    }
+}));
+
+
+
+
 });

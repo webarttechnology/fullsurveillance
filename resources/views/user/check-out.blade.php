@@ -3,7 +3,6 @@
 @extends('user.master.layout')
 @section('content')
 <main class="main-content">
-
     <!--== Start Checkout Area Wrapper ==-->
     <div class="section-space shop-checkout-area">
         <div class="container">
@@ -11,10 +10,11 @@
                 <div class="col-lg-12">
                     <div class="checkout-coupon-wrap mb-8 mb-lg-10 pb-lg-2">
                         <p class="cart-page-title">Have a coupon? <a class="checkout-coupon-active" href="#/">Click here to enter your code</a></p>
-                        <form class="checkout-coupon-content" action="#">
+                        <form class="checkout-coupon-content">
                             <p>If you have a coupon code, please apply it below.</p>
-                            <input type="text" placeholder="Coupon code">
-                            <button type="submit">Apply coupon</button>
+                            <input type="text" placeholder="Coupon code" class="coupon-code">
+                            <button class="apply-coupon">Apply coupon</button>
+                            <a href="#" class="btn btn-lg btn-danger remove-coupon" style="display: none">Remove Coupon</a>
                         </form>
                     </div>
                 </div>
@@ -43,24 +43,15 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="billing-select mb-4">
+                                <div class="billing-info mb-4">
                                     <label>Country / Region <abbr class="required" title="required">*</abbr></label>
-                                    <div class="select-style">
-                                        <select class="select-active">
-                                            <option>Bangladesh</option>
-                                            <option>Bahrain</option>
-                                            <option>Azerbaijan</option>
-                                            <option>Barbados</option>
-                                            <option>Barbados</option>
-                                        </select>
-                                    </div>
+                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="billing-info mb-4">
                                     <label>Street Address <abbr class="required" title="required">*</abbr></label>
                                     <input class="billing-address" placeholder="House number and street name" type="text">
-                                    <input placeholder="Apartment, suite, unit, etc. (optional)" type="text">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -70,17 +61,9 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="billing-select mb-4">
+                                <div class="billing-info mb-4">
                                     <label>District <abbr class="required" title="required">*</abbr></label>
-                                    <div class="select-style">
-                                        <select class="select-active">
-                                            <option>Select an option…</option>
-                                            <option>Barguna</option>
-                                            <option>Bandarban</option>
-                                            <option>Barbados</option>
-                                            <option>Barbados</option>
-                                        </select>
-                                    </div>
+                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -103,8 +86,8 @@
                             </div>
                         </div>
                         <div class="checkout-account">
-                            <input class="checkout-toggle" type="checkbox">
-                            <span>Ship to a different address?</span>
+                            <input class="checkout-toggle" id="shipping" type="checkbox">
+                            <span> <label for="shipping">Ship to a different address?</label> </span>
                         </div>
                         <div class="different-address open-toggle mt-30">
                             <div class="row">
@@ -127,24 +110,15 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="billing-select mb-4">
+                                    <div class="billing-info mb-4">
                                         <label>Country / Region <abbr class="required" title="required">*</abbr></label>
-                                        <div class="select-style">
-                                            <select class="select-active">
-                                                <option>Bangladesh</option>
-                                                <option>Bahrain</option>
-                                                <option>Azerbaijan</option>
-                                                <option>Barbados</option>
-                                                <option>Barbados</option>
-                                            </select>
-                                        </div>
+                                        <input type="text">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="billing-info mb-4">
                                         <label>Street Address <abbr class="required" title="required">*</abbr></label>
                                         <input class="billing-address" placeholder="House number and street name" type="text">
-                                        <input placeholder="Apartment, suite, unit, etc. (optional)" type="text">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -154,17 +128,9 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="billing-select mb-4">
+                                    <div class="billing-info mb-4">
                                         <label>District <abbr class="required" title="required">*</abbr></label>
-                                        <div class="select-style">
-                                            <select class="select-active">
-                                                <option>Select an option…</option>
-                                                <option>Barguna</option>
-                                                <option>Bandarban</option>
-                                                <option>Barbados</option>
-                                                <option>Barbados</option>
-                                            </select>
-                                        </div>
+                                        <input type="text">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -186,6 +152,10 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="additional-info-wrap">
+                            <label>Order notes (optional)</label>
+                            <textarea placeholder="Notes about your order, e.g. special notes for delivery. " name="message"></textarea>
                         </div>
                     </div>
                 </div>
@@ -213,17 +183,16 @@
                                 <div class="your-order-subtotal">
                                     <h3>Subtotal <span>${{ number_format( array_sum($subTotal) , 2) }}</span></h3>
                                 </div>
-                                <div class="your-order-shipping">
-                                    <span>Shipping</span>
-                                    <ul>
-                                        <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>
-                                    </ul>
+                                <div class="your-order-subtotal coupon-section" style="display: none">
+                                    <h3>Coupon discount <span class="coupon-discount">$0</span></h3>
                                 </div>
+                               
                                 <div class="your-order-total">
                                     <h3>Total <span>${{ number_format( array_sum($subTotal) , 2) }}</span></h3>
                                 </div>
                             </div>
                             <div class="payment-method">
+                                <span class="d-block pb-3"><b>Payment Methods</b></span>
                                 <div class="pay-top sin-payment">
                                     <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
                                     <label for="payment-method-3">Cash on delivery </label>
@@ -241,7 +210,7 @@
                             </div>
                         </div>
                         <div class="place-order">
-                            <a href="shop-checkout.html">Place Order</a>
+                            <a href="#">Place Order</a>
                         </div>
                     </div>
                 </div>

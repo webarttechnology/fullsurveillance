@@ -7,7 +7,6 @@ if(Auth::check() == true){
     }
 }  
 @endphp
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>

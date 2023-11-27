@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartControler;
+use App\Http\Controllers\CheckoutControler;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+////// User
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/', 'index');
@@ -33,10 +36,11 @@ Route::controller(UserController::class)->group(function () {
 
     Route::middleware(['auth', 'prevent-back-history'])->group(function () {
         Route::get('/logout', 'logout');
-        Route::get('/chekout', 'chekout');
     });
-
 });
+
+
+/////// Shopping Cart & Wishlist 
 
 Route::controller(CartControler::class)->group(function () {
     Route::post('/add-cart', 'add_cart');
@@ -46,15 +50,24 @@ Route::controller(CartControler::class)->group(function () {
     Route::get('/cart', 'cart');
     Route::post('/sub-grand-total-cart', 'sub_grand_total_cart');
 
-
-
     /////// Wishlist 
     Route::post('/add-wishlist', 'add_wishlist');
     Route::get('/wishlist', 'wishlist');
     Route::post('/total-wishlist-count', 'total_wishlist_count');
+    Route::post('/cart-total-amount', 'cart_total_amount');
 
 });
 
+
+
+//////  Checkout 
+
+Route::controller(CheckoutControler::class)->group(function () {
+    Route::middleware(['auth', 'prevent-back-history'])->group(function () {
+        Route::get('/chekout', 'chekout');
+        Route::post('/apply-coupon', 'apply_coupon');
+    });
+});
 
 
 

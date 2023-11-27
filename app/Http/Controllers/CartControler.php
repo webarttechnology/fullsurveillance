@@ -117,5 +117,15 @@ class CartControler extends Controller
 
     }
 
+    public function cart_total_amount(Request $request)
+    {
+
+       echo  cart_total_amount();
+
+    }
+
+
+    
+
 
 }

@@ -204,3 +204,17 @@ function get_wishlist_details(){
   }
   return $data;
 }
+
+
+function  cart_total_amount(){
+
+  $data = Cart::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
+
+  $subTotal = [];
+  foreach ($data as $value) {
+        $subTotal[] = $value->product->discount_price * $value->quantity;
+  }
+
+  return array_sum($subTotal);
+  
+}
