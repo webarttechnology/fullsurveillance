@@ -361,10 +361,8 @@
 <script src="{{ url('user/assets/js/cart_script.js') }}"></script>
 <script src="{{ url('user/assets/js/checkout.js') }}"></script>
 @yield('script')
-
 <script>
   $(function(){
-
     $(document).on('click','.action-btn-quick-view',function(){
         $.ajax({
             type: 'POST',

@@ -24,7 +24,6 @@
                                 <strong>{{ $order->created_at->format('d-M-Y') }}</strong>
                              </span>
                             <span class="float-right"> <strong>Status:</strong> {{ $order->status }}</span>
-
                         </div>
                         <div class="card-body">
                             <div class="row mb-4">
@@ -91,7 +90,6 @@
                                 <div class="col-lg-4 col-sm-5">
                                       <a href="{{ route('order.index') }}" class="btn btn-success">Back</a>
                                 </div>
-
                                 <div class="col-lg-4 col-sm-5 ml-auto">
                                     <table class="table table-clear">
                                         <tbody>
@@ -117,7 +115,6 @@
                                                 <td class="right">${{ $order->coupon_amount }}</td>
                                             </tr>
                                             @endif
-                                           
                                             <tr>
                                                 <td class="left">
                                                     <strong>Total</strong>
