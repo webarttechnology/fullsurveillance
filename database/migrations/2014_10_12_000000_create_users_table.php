@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile')->nullable();
             $table->string('password')->nullable();
-            $table->softDeletes();
+            $table->softDeletes(); /// Optional
             $table->enum('status', ['Active', 'Inactive']);
             $table->rememberToken();
             $table->timestamps();

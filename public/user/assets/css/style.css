@@ -9730,6 +9730,20 @@ only screen and (max-width: 767px) {
   background-color: #02327e;
 }
 
+.place-order button {
+  padding: 17px 20px;
+  font-size: 14px;
+  line-height: 1;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: block;
+  text-align: center;
+  background-color: #02327e;
+  border: none;
+  width: 100%;
+}
+
 @media only screen and (max-width: 767px) {
   .place-order a {
     font-size: 16px;

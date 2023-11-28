@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderControler;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ProductImageController;
 
@@ -27,6 +28,7 @@ Route::group(['prefix' => 'admin' ], function () {
       Route::post('get-subcategory', [ProductController::class, 'get_subcategory']);
       Route::resource('product-image', ProductImageController::class);
       Route::resource('coupon', CouponController::class);
+      Route::resource('order', OrderControler::class);
    });
 
 });

@@ -16,7 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->text('product_name')->nullable();
+            $table->string('amount')->nullable();
             $table->string('quantity')->nullable();
+            $table->string('total_amount')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('order_id')->references('id')->on('orders');

@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('order_generate_id')->nullable();
             $table->string('payment_gateway_id')->nullable();
             $table->text('order_note')->nullable();
-            $table->enum('method', ['COD', 'Online'])->nullable();
+            $table->string('method')->nullable();
+            $table->enum('type', ['COD', 'Online'])->nullable();
+            $table->enum('status', ['Pending', 'Success', 'Delivered'])->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

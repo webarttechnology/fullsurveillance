@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartControler;
 use App\Http\Controllers\CheckoutControler;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,12 +64,21 @@ Route::controller(CartControler::class)->group(function () {
 //////  Checkout 
 
 Route::controller(CheckoutControler::class)->group(function () {
-    Route::middleware(['auth', 'prevent-back-history'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
         Route::get('/chekout', 'chekout');
         Route::post('/apply-coupon', 'apply_coupon');
+        Route::post('/order', 'order')->name('order');
     });
 });
 
+
+Route::controller(StripeController::class)->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/cancel', 'cancel');
+        Route::get('/success', 'success');
+        Route::get('/fail', 'fail');
+    });
+});
 
 
 

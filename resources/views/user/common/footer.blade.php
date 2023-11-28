@@ -351,6 +351,11 @@
 {{-- Toast --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
+
+{{-- Stripe --}}
+
+<script src="https://js.stripe.com/v3/"></script>
+
 <!-- Custom Main JS -->
 <script src="{{ url('user/assets/js/main.js') }}"></script>
 <script src="{{ url('user/assets/js/cart_script.js') }}"></script>
