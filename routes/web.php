@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\CartControler;
-use App\Http\Controllers\CheckoutControler;
-use App\Http\Controllers\StripeController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartControler;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\CheckoutControler;
+use App\Http\Controllers\PaypalPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,16 +29,19 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/product', 'product');
     Route::get('/shop', 'shop');
     Route::get('/item/{id}', 'item');
-
+    Route::get('/search', 'search');
 
     Route::get('/login-register', 'login_register')->name('login');
     Route::post('/register-action', 'register_action');
     Route::post('/login-action', 'login_action');
     Route::post('/get-product-view', 'get_product_view');
 
+    Route::post('/contact-send', 'contact_send');
+
     Route::middleware(['auth', 'prevent-back-history'])->group(function () {
         Route::get('/logout', 'logout');
     });
+
 });
 
 
@@ -60,17 +64,19 @@ Route::controller(CartControler::class)->group(function () {
 });
 
 
-
 //////  Checkout 
 
 Route::controller(CheckoutControler::class)->group(function () {
     Route::middleware(['auth'])->group(function () {
-        Route::get('/chekout', 'chekout');
+        Route::get('/checkout', 'checkout');
         Route::post('/apply-coupon', 'apply_coupon');
         Route::post('/order', 'order')->name('order');
     });
 });
 
+
+
+///////// Payment gateway   //////
 
 Route::controller(StripeController::class)->group(function () {
     Route::middleware(['auth'])->group(function () {
@@ -80,8 +86,7 @@ Route::controller(StripeController::class)->group(function () {
     });
 });
 
-
-
-
+/* For Paypal Payment Success */
+Route::get('paypal/success', [PaypalPaymentController::class, 'success'])->name('payment.success');
 
 

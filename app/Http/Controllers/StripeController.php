@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Stripe\Exception\CardException;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -81,6 +83,8 @@ class StripeController extends Controller
             'payment_gateway_id' => Session::get("paymentDetails.payment_id.id"),
             'status' => 'Success',
         ]);
+
+        Cart::where('user_id', Auth::id())->delete();
 
         return view('user.success');
 

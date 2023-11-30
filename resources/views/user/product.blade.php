@@ -3,28 +3,6 @@
 @extends('user.master.layout')
 @section('content')
 <main class="main-content">
-    <!--== Start Page Header Area Wrapper ==-->
-    {{-- <div class="page-header-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="page-header-content">
-                        <h2 class="page-header-title">Products</h2>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php">Home //</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Single Product</li>
-                        </ol>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="page-header-thumb">
-                        <img src="assets/images/photos/page-title.png" alt="Image-HasTech" width="546" height="281">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!--== End Page Header Area Wrapper ==-->
 
     <!--== Start Product Detail Area Wrapper ==-->
     <div class="product-detail-area section-space">
@@ -78,7 +56,7 @@
                             </div>
                             <p class="product-detail-review-show">( 1 Review )</p>
                         </div>
-                        <div class="product-size-list">
+                        {{-- <div class="product-size-list">
                             <div class="product-size-list-check">
                                 <input class="form-check-input" type="radio" name="flexRadioSizeList" id="sizeSList1">
                                 <label class="form-check-label" for="sizeSList1">S</label>
@@ -95,7 +73,7 @@
                                 <input class="form-check-input" type="radio" name="flexRadioSizeList" id="sizeXLList1">
                                 <label class="form-check-label" for="sizeXLList1">XL</label>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="product-color-list">
                             <h4>Color:</h4>
                             <div class="product-color-list-check">

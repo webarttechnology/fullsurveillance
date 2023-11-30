@@ -6,20 +6,21 @@ use Carbon\Carbon;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Coupon;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use App\Models\OrderShipAddress;
+use App\Models\OrderBillingAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\StripeController;
-use App\Models\Order;
-use App\Models\OrderBillingAddress;
-use App\Models\OrderDetail;
-use App\Models\OrderShipAddress;
+use App\Http\Controllers\PaypalPaymentController;
 
 class CheckoutControler extends Controller
 {
 
-    public function chekout()
+    public function checkout()
     {
        
          if(cart_total_amount() == 0){
@@ -240,14 +241,19 @@ class CheckoutControler extends Controller
             ];
 
             OrderDetail::create($order_details);
-
-            $value->delete();
+            
         }
 
         //  dd($payable_amount);
 
         if($request->payment_method == "stripe"){
             $link = StripeController::StripePay($request, $order->id, $payable_amount);
+            return $link;
+        }
+
+
+        if($request->payment_method  == "paypal"){
+            $link = PaypalPaymentController::paypalPay($request, $order->id);
             return $link;
         }
 

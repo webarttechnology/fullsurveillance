@@ -23,6 +23,10 @@
                                 Invoice
                                 <strong>{{ $order->created_at->format('d-M-Y') }}</strong>
                              </span>
+                             <span>
+                                 Payment Gateway Id: <b>{{ $order->payment_gateway_id ?? null }}</b> <br>
+                                 Order Id: <b>{{ $order->order_generate_id }}</b> 
+                            </span>
                             <span class="float-right"> <strong>Status:</strong> {{ $order->status }}</span>
                         </div>
                         <div class="card-body">

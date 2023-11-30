@@ -76,7 +76,7 @@ $(function(){
 
     ////// Hide or Show Add Cart or Qty bnt
      
-    if(firstPathname == 'shop' || firstPathname == 'item' ){
+    if(firstPathname == 'shop' || firstPathname == 'item' || firstPathname == 'service' ){
       if(newVal == 0){
         /////// Hide quatity 
         $button.parent().addClass('d-none');
@@ -220,7 +220,7 @@ $(function(){
          RemoveCartShowEmpty();
         }
 
-        if(firstPathname == 'shop' || firstPathname == 'item' ){
+        if(firstPathname == 'shop' || firstPathname == 'item' || firstPathname == 'service' ){
           if($(this).val() == 0){
             /////// Hide quatity 
             $(this).parent().addClass('d-none');

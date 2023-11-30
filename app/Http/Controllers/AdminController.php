@@ -152,6 +152,11 @@ class AdminController extends Controller
     }
 
 
+    public function contact_list()
+    {
+        return view('admin.contact-list');
+    }
+
     
     
 

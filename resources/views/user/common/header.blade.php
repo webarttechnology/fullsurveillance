@@ -34,6 +34,7 @@ if(Auth::check() == true){
     <link rel="stylesheet" href="{{ url('user/assets/css/plugins/simple-line-icons.css')}}">
     <link rel="stylesheet" href="{{ url('user/assets/css/plugins/fancybox.min.css')}}">
     <link rel="stylesheet" href="{{ url('user/assets/css/plugins/nice-select.css')}}">
+    <link rel="stylesheet" href="{{ url('user/assets/css/plugins/range-slider.css')}}">
     <!-- Style CSS -->
 
     {{-- Toast --}}
@@ -84,19 +85,19 @@ if(Auth::check() == true){
                         <div class="col-auto">
                             <div class="header-logo-area">
                                 <a href="{{ url('/') }}">
-                                    <img class="logo-main" src="{{ url('user/assets/images/brand-logo/fsi-eart.png') }}" width="55px"  height="auto" alt="Logo">
+                                    <img class="logo-main" src="{{ url('user/assets/images/brand-logo/new-logo.gif') }}" width="55px"  height="auto" alt="Logo">
                                     <img src="{{ url('user/assets/images/brand-logo/fsi-logo.png') }}" width="268px" height="42px" alt="logo">
                                 </a>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <form class="header-search-box header-search-box-two ms-3">
-                                <input class="form-control" type="text" id="search" placeholder="Search Products">
+                            <form  action="{{ url('search') }}" method="get" class="header-search-box header-search-box-two ms-3">
+                                <input class="form-control" name="s" type="text" id="search" value="{{ request()->s ?? null }}" placeholder="Search Products">
                                 <div class="header-search-box-categories">
-                                    <select class="select-active">
-                                        <option class="all">All Categories</option>
+                                    <select class="select-active" name="cate">
+                                        <option class="all" value="all" @if( request()->s == "all") selected @endif >All Categories</option>
                                         @foreach (App\Models\Category::where('status', 'Active')->get() as $item)
-                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                         <option value="{{ $item->name }}" @if( request()->cate == $item->name ) selected @endif>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

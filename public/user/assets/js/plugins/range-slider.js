@@ -2,6 +2,7 @@
 // Link -- https://codepen.io/jackiejohnston/pen/NNrpjQ
 
 // Initialize slider:
+
 $(document).ready(function() {
   $('.noUi-handle').on('click', function() {
     $(this).width(50);
@@ -13,27 +14,76 @@ $(document).ready(function() {
     prefix: '$'
   });
   noUiSlider.create(rangeSlider, {
-    start: [250, 1300],
-    step: 50,
+    start: [10, 1000],
+    step: 10,
     range: {
-      'min': [250],
-      'max': [1800]
+      'min': [10],
+      'max': [1000]
     },
     format: moneyFormat,
     connect: true
   });
   
+     
+
   // Set visual min and max values and also update value hidden form inputs
   rangeSlider.noUiSlider.on('update', function(values, handle) {
-    document.getElementById('slider-range-value1').innerHTML = values[0];
-    document.getElementById('slider-range-value2').innerHTML = values[1];
-    document.getElementsByName('min-value').value = moneyFormat.from(
-      values[0]);
-    document.getElementsByName('max-value').value = moneyFormat.from(
-      values[1]);
+        //  console.log(values);
+    const urlParams = new URLSearchParams(window.location.search);
+    const minValue = urlParams.get('min');
+    const maxValue = urlParams.get('max');
+    if(minValue && maxValue){
+      document.getElementById('slider-range-value1').innerHTML = '$'+minValue;
+      document.getElementById('slider-range-value2').innerHTML = '$'+maxValue;
+      document.getElementsByName('min-value').value = moneyFormat.from(minValue);
+      document.getElementsByName('max-value').value = moneyFormat.from(maxValue);
+      // rangeSlider.noUiSlider.set(100);
+    }else{
+      document.getElementById('slider-range-value1').innerHTML = values[0];
+      document.getElementById('slider-range-value2').innerHTML = values[1];
+      document.getElementsByName('min-value').value = moneyFormat.from(values[0]);
+      document.getElementsByName('max-value').value = moneyFormat.from(values[1]);
+    }
+
+
+    // document.getElementById('slider-range-value1').innerHTML = values[0];
+    // document.getElementById('slider-range-value2').innerHTML = values[1];
+    // document.getElementsByName('min-value').value = moneyFormat.from(values[0]);
+    // document.getElementsByName('max-value').value = moneyFormat.from(
+    //   values[1]);
+
   });
+
+  
+  rangeSlider.noUiSlider.on('change', function(values, handle) {
+    // Update the value display
+      document.getElementById('slider-range-value1').innerHTML = values[0];
+      document.getElementById('slider-range-value2').innerHTML = values[1];
+      document.getElementsByName('min-value').value = moneyFormat.from(values[0]);
+      document.getElementsByName('max-value').value = moneyFormat.from(values[1]);
+       rangeFilterSearch(values[0], values[1])
+  });
+
 });
 
+
+function rangeFilterSearch(min, max){
+
+    var min_value = min.replace(/\$/g, '');
+    var max_value = max.replace(/\$/g, '');
+        
+    const urlParams = new URLSearchParams(window.location.search);
+    const param1Value = urlParams.get('cate');
+    var base_url = window.location.origin;
+   
+    if(param1Value){
+      var url = base_url + '/shop' + '?cate=' + param1Value + '&min='+ min_value +'&max=' + max_value;
+    }else{
+      var url = base_url + '/shop' + '?min='+ min_value +'&max=' + max_value;
+    }
+
+    window.location = url;
+}
 
 
 // https://refreshless.com/nouislider/

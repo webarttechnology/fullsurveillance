@@ -3,29 +3,6 @@
 @extends('user.master.layout')
 @section('content')
 <main class="main-content">
-    <!--== Start Page Header Area Wrapper ==-->
-    {{-- <div class="page-header-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="page-header-content">
-                        <h2 class="page-header-title">Cart</h2>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home //</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Cart</li>
-                        </ol>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="page-header-thumb">
-                        <img src="assets/images/photos/page-title.png" alt="Image-HasTech" width="546" height="281">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!--== End Page Header Area Wrapper ==-->
-
     <!--== Start Product Cart Area Wrapper ==-->
     <div class="product-area section-space">
         <div class="container">
@@ -89,92 +66,13 @@
                                 </div>
 
                                 <div class="grand-total-btn">
-                                    <a class="btn btn-link" href="{{ url('chekout') }}">Proceed to checkout</a>
+                                    <a class="btn btn-link" href="{{ url('checkout') }}">Proceed to checkout</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-           
-
-
-
-            {{-- <div class="row">
-                <div class="col-md-6 col-lg-4">
-                    <div class="cart-calculate-discount-wrap mb-40">
-                        <h4>Calculate shipping </h4>
-                        <div class="calculate-discount-content">
-                            <div class="select-style">
-                                <select class="select-active">
-                                    <option>Bangladesh</option>
-                                    <option>Bahrain</option>
-                                    <option>Azerbaijan</option>
-                                    <option>Barbados</option>
-                                    <option>Barbados</option>
-                                </select>
-                            </div>
-                            <div class="select-style">
-                                <select class="select-active">
-                                    <option>State / County</option>
-                                    <option>Bahrain</option>
-                                    <option>Azerbaijan</option>
-                                    <option>Barbados</option>
-                                    <option>Barbados</option>
-                                </select>
-                            </div>
-                            <div class="input-style">
-                                <input type="text" placeholder="Town / City">
-                            </div>
-                            <div class="input-style mb-6">
-                                <input type="text" placeholder="Postcode / ZIP">
-                            </div>
-                            <div class="calculate-discount-btn">
-                                <a class="btn btn-link" href="#/">Update</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="cart-calculate-discount-wrap mb-40 mt-10 mt-md-0">
-                        <h4>Coupon Discount </h4>
-                        <div class="calculate-discount-content">
-                            <p>Enter your coupon code if you have one.</p>
-                            <div class="input-style mb-6">
-                                <input type="text" placeholder="Coupon code">
-                            </div>
-                            <div class="calculate-discount-btn">
-                                <a class="btn btn-link" href="#/">Apply Coupon</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-4">
-                    <div class="grand-total-wrap mt-10 mt-lg-0">
-                        <div class="grand-total-content">
-                            <h5>Subtotal <span>$180.00</span></h5>
-                            <div class="grand-shipping">
-                                <span>Shipping</span>
-                                <ul>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>
-                                </ul>
-                            </div>
-                            <div class="shipping-country">
-                                <p>Shipping to Bangladesh</p>
-                            </div>
-                            <div class="grand-total">
-                                <h4>Total <span>$185.00</span></h4>
-                            </div>
-                        </div>
-                        <div class="grand-total-btn">
-                            <a class="btn btn-link" href="shop-checkout.html">Proceed to checkout</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 </main>

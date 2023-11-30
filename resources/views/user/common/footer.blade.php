@@ -347,6 +347,7 @@
 <script src="{{ url('user/assets/js/plugins/jquery.nice-select.min.js') }}"></script>
 <script src="{{ url('user/assets/js/plugins/jquery.countdown.min.js') }}"></script>
 <script src="{{ url('user/assets/js/plugins/isotope.pkgd.min.js') }}"></script>
+<script src="{{ url('user/assets/js/plugins/range-slider.js') }}"></script>
 
 {{-- Toast --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

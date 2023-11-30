@@ -28,7 +28,7 @@
     </div>
     <div class="cart-checkout-btn">
         <a class="cart-btn" href="{{ url('cart') }}">view cart</a>
-        <a class="checkout-btn" href="{{ url('chekout') }}">checkout</a>
+        <a class="checkout-btn" href="{{ url('checkout') }}">checkout</a>
     </div>
 </div>
 @else

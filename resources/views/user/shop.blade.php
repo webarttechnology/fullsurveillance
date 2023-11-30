@@ -11,7 +11,6 @@
 }
 </style>
 <main class="main-content">
-
     <!--== Start Product Area Wrapper ==-->
     <div class="product-area section-space">
         <div class="container">
@@ -93,6 +92,10 @@
                                 </div>
                                 @endforeach
 
+                                @if (count($product) == 0)
+                                     <span class="text-danger text-center mt-5">No Record Found</span>
+                                @endif
+
                                 {{-- <div class="col-12">
                                     <nav class="pagination-area mt-6 mb-6">
                                         <ul class="page-numbers justify-content-center">
@@ -133,12 +136,8 @@
                                                     <div class="inc qty-btn inc-cart">+</div>
                                                 </div>
                                                 <button class="info-btn-cart add-cart {{  cart_count_per_product($item->id) > 0 ? 'd-none' : '' }} " type="button" data-id="{{ $item->id }}"><i class="icon-handbag"></i></button>
-                                             
                                                 </div>
-                                               
-
                                           {{-- <button type="button" class="info-btn-cart" data-bs-toggle="modal" data-bs-target="#action-CartAddModal"><i class="icon-handbag"></i></button> --}}
-                                                
                                                 {{-- <div class="product-list-review-icon">
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
@@ -152,6 +151,10 @@
                                     <!--== End Product Item ==-->
                                 </div>
                                 @endforeach
+
+                                @if (count($product) == 0)
+                                   <span class="text-danger text-center mt-5">No Record Found</span>
+                                @endif
 
                                 {{-- <div class="col-12 col-lg-12 col-md-12">
                                     <nav class="pagination-area mt-6 mb-6">
@@ -182,32 +185,16 @@
                             <h3 class="widget-two-title text-black">Category</h3>
                             <div class="widget-categories-list">
                                  @foreach ($categories as $item)
-                                   <a class="widget-category-item" href="#"> <span class="icon"><img src="{{ url($item->img ?? '#') }}" width="24px" height="24px" alt="Icon"></span> {{ $item->name }} ({{ $item->product->count() }})</a>
+                                    @if (count($item->product) > 0)
+                                    <a class="widget-category-item" href="{{ url('shop?cate='.$item->name.'') }}"> <span class="icon"><img src="{{ url($item->img ?? '#') }}" width="24px" height="24px" alt="Icon"></span> {{ $item->name }} ({{ $item->product->count() }})</a>
+                                    @endif
                                  @endforeach
                             </div>
                         </div>
 
                         <div class="widget-item widget-item-one">
                             <h3 class="widget-two-title text-black">Product Filter</h3>
-                            <div class="widget-filter-size">
-                                <h4 class="filter-size-title">Filter By Size</h4>
-                                <div class="filter-form-check">
-                                    <input class="filter-form-check-input" type="checkbox" id="filterSizeChecked1">
-                                    <label class="filter-form-check-label" for="filterSizeChecked1">All (65)</label>
-                                </div>
-                                <div class="filter-form-check">
-                                    <input class="filter-form-check-input" type="checkbox" id="filterSizeChecked2">
-                                    <label class="filter-form-check-label" for="filterSizeChecked2">Small (15)</label>
-                                </div>
-                                <div class="filter-form-check">
-                                    <input class="filter-form-check-input" type="checkbox" id="filterSizeChecked3">
-                                    <label class="filter-form-check-label" for="filterSizeChecked3">Medium (10)</label>
-                                </div>
-                                <div class="filter-form-check">
-                                    <input class="filter-form-check-input" type="checkbox" id="filterSizeChecked4">
-                                    <label class="filter-form-check-label" for="filterSizeChecked4">Lerge (22)</label>
-                                </div>
-                            </div>
+                            
                             <div class="widget-price-filter pe-0">
                                 <h4 class="filter-price-title">Filter By Price</h4>
                                 <div class="slider-range" id="slider-range"></div>

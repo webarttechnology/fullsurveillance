@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin' ], function () {
       Route::resource('product-image', ProductImageController::class);
       Route::resource('coupon', CouponController::class);
       Route::resource('order', OrderControler::class);
+      Route::get('contact-lists', [AdminController::class, 'contact_list']);
    });
 
 });

@@ -6,7 +6,7 @@
 <!-- <main class="main-content"> -->
 
 <!--== Start Page Header Area Wrapper ==-->
-<div class="page-header-area">
+{{-- <div class="page-header-area">
     <div class="container abt-container">
         <div class="row">
             <div class="col-sm-6">
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!--== End Page Header Area Wrapper ==-->
 
 <!--== Start Divider Area ==-->
@@ -34,7 +34,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="ps-lg-10 pe-lg-10 ms-lg-2 me-lg-2 mb-10 mb-lg-0 text-center text-lg-start">
-                    <img src="assets/images/photos/about-img.jpg" alt="Image-HasTech" width="449" height="550">
+                    <img src="{{ url('user/assets/images/photos/about-img.jpg') }}" alt="Image-HasTech" width="449" height="550">
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-start">
@@ -66,7 +66,7 @@
                 class="d-block fw-bold text-primary">With Smart Devices</span></h2>
         <a class="video-wrp ht-popup-video" data-fancybox data-type="iframe"
             href="https://player.vimeo.com/video/172601404?autoplay=1">
-            <img src="assets/images/photos/bg-video.png" alt="Image-HasTech" width="1250" height="500">
+            <img src="{{ url('user/assets/images/photos/bg-video.png') }}" alt="Image-HasTech" width="1250" height="500">
             <span class="btn-play"><span class="icon"><i class="fa fa-play"></i></span></span>
         </a>
     </div>
@@ -81,7 +81,7 @@
             <div class="col-sm-6 col-md-6 col-lg-4 mb-6">
                 <div class="team-item">
                     <div class="team-thumb">
-                        <img class="w-100" src="assets/images/team/1.jpg" alt="Image-HasTech">
+                        <img class="w-100" src="{{ url('user/assets/images/team/1.jpg') }}" alt="Image-HasTech">
                     </div>
                     <div class="team-info">
                         <h4 class="team-title mt-n1">Kiersten Lange</h4>
@@ -102,7 +102,7 @@
             <div class="col-sm-6 col-md-6 col-lg-4 mb-6">
                 <div class="team-item">
                     <div class="team-thumb">
-                        <img class="w-100" src="assets/images/team/2.jpg" alt="Image-HasTech">
+                        <img class="w-100" src="{{ url('user/assets/images/team/2.jpg') }}" alt="Image-HasTech">
                     </div>
                     <div class="team-info">
                         <h4 class="team-title mt-n1">Monroe Bond</h4>
@@ -123,7 +123,7 @@
             <div class="col-sm-6 col-md-6 col-lg-4 mb-6">
                 <div class="team-item">
                     <div class="team-thumb">
-                        <img class="w-100" src="assets/images/team/3.jpg" alt="Image-HasTech">
+                        <img class="w-100" src="{{ url('user/assets/images/team/3.jpg') }}" alt="Image-HasTech">
                     </div>
                     <div class="team-info">
                         <h4 class="team-title mt-n1">Raymond Atkins</h4>
@@ -147,7 +147,7 @@
 <!--== End Team Area ==-->
 
 <!--== Start Testimonial Area ==-->
-<div class="testimonial-area section-space bg-img" data-bg-img="assets/images/photos/bg1.jpg">
+<div class="testimonial-area section-space bg-img" data-bg-img="{{ url('user/assets/images/photos/bg1.jpg') }}">
     <div class="container">
         <div class="section-title text-center">
             <h2 class="title text-white mt-n2 mb-n1">Customer Review</h2>
@@ -159,12 +159,12 @@
                         <div class="testimonial-content">
                             <p>Lorem ipsum dolor sit amet, consl adipi elit, sed do eiusmod tempor incididu ut labore et
                                 dolore magn aliqua Ut enim admin.</p>
-                            <img class="icon-quote" src="assets/images/icons/quote1.png" alt="Image" width="69"
+                            <img class="icon-quote" src="{{ url('user/assets/images/icons/quote1.png') }}" alt="Image" width="69"
                                 height="65">
                         </div>
                         <div class="testimonial-info">
                             <div class="client-thumb">
-                                <img src="assets/images/photos/client1.png" alt="Image" width="94" height="94">
+                                <img src="{{ url('user/assets/images/photos/client1.png') }}" alt="Image" width="94" height="94">
                             </div>
                             <div class="info">
                                 <h4 class="name">Merida Swan</h4>
@@ -176,12 +176,12 @@
                         <div class="testimonial-content">
                             <p>Lorem ipsum dolor sit amet, consl adipi elit, sed do eiusmod tempor incididu ut labore et
                                 dolore magn aliqua Ut enim admin.</p>
-                            <img class="icon-quote" src="assets/images/icons/quote1.png" alt="Image" width="69"
+                            <img class="icon-quote" src="{{ url('user/assets/images/icons/quote1.png') }}" alt="Image" width="69"
                                 height="65">
                         </div>
                         <div class="testimonial-info">
                             <div class="client-thumb">
-                                <img src="assets/images/photos/client2.png" alt="Image" width="94" height="94">
+                                <img src="{{ url('user/assets/images/photos/client2.png') }}" alt="Image" width="94" height="94">
                             </div>
                             <div class="info">
                                 <h4 class="name">Demetri Caron</h4>
@@ -193,12 +193,12 @@
                         <div class="testimonial-content">
                             <p>Lorem ipsum dolor sit amet, consl adipi elit, sed do eiusmod tempor incididu ut labore et
                                 dolore magn aliqua Ut enim admin.</p>
-                            <img class="icon-quote" src="assets/images/icons/quote1.png" alt="Image" width="69"
+                            <img class="icon-quote" src="{{ url('user/assets/images/icons/quote1.png') }}" alt="Image" width="69"
                                 height="65">
                         </div>
                         <div class="testimonial-info">
                             <div class="client-thumb">
-                                <img src="assets/images/photos/client3.png" alt="Image" width="94" height="94">
+                                <img src="{{ url('user/assets/images/photos/client3.png') }}" alt="Image" width="94" height="94">
                             </div>
                             <div class="info">
                                 <h4 class="name">Anaiah Whitten</h4>
@@ -210,12 +210,12 @@
                         <div class="testimonial-content">
                             <p>Lorem ipsum dolor sit amet, consl adipi elit, sed do eiusmod tempor incididu ut labore et
                                 dolore magn aliqua Ut enim admin.</p>
-                            <img class="icon-quote" src="assets/images/icons/quote1.png" alt="Image" width="69"
+                            <img class="icon-quote" src="{{ url('user/assets/images/icons/quote1.png') }}" alt="Image" width="69"
                                 height="65">
                         </div>
                         <div class="testimonial-info">
                             <div class="client-thumb">
-                                <img src="assets/images/photos/client4.png" alt="Image" width="94" height="94">
+                                <img src="{{ url('user/assets/images/photos/client4.png') }}" alt="Image" width="94" height="94">
                             </div>
                             <div class="info">
                                 <h4 class="name">Juidan Swan</h4>
@@ -241,7 +241,7 @@
                 <!--== Start Feature Item ==-->
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <img src="assets/images/icons/1.png" width="44" height="38" alt="Icon">
+                        <img src="{{ url('user/assets/images/icons/1.png') }}" width="44" height="38" alt="Icon">
                     </div>
                     <div class="feature-content">
                         <h4 class="feature-title">Support 24/7</h4>
@@ -254,7 +254,7 @@
                 <!--== Start Feature Item ==-->
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <img src="assets/images/icons/2.png" width="38" height="38" alt="Icon">
+                        <img src="{{ url('user/assets/images/icons/2.png') }}" width="38" height="38" alt="Icon">
                     </div>
                     <div class="feature-content">
                         <h4 class="feature-title">Easy Returns</h4>
@@ -267,7 +267,7 @@
                 <!--== Start Feature Item ==-->
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <img src="assets/images/icons/3.png" width="48" height="38" alt="Icon">
+                        <img src="{{ url('user/assets/images/icons/3.png') }}" width="48" height="38" alt="Icon">
                     </div>
                     <div class="feature-content">
                         <h4 class="feature-title">Card Payment</h4>
@@ -280,7 +280,7 @@
                 <!--== Start Feature Item ==-->
                 <div class="feature-item border-0">
                     <div class="feature-icon">
-                        <img src="assets/images/icons/4.png" width="50" height="38" alt="Icon">
+                        <img src="{{ url('user/assets/images/icons/4.png') }}" width="50" height="38" alt="Icon">
                     </div>
                     <div class="feature-content">
                         <h4 class="feature-title">Free Shipping</h4>
@@ -303,7 +303,7 @@
         <div class="row row-cols-3 row-cols-sm-3 row-cols-lg-5 gx-4 mb-n6 justify-content-center">
             <div class="col mb-6">
                 <div class="gallery-item">
-                    <img src="assets/images/photos/gallery1.png" alt="Instagram Image">
+                    <img src="{{ url('user/assets/images/photos/gallery1.png') }}" alt="Instagram Image">
                     <a class="gallery-overlay" target="_blank" rel="noopener" href="#">
                         <i class="fa fa-instagram"></i>
                     </a>
@@ -311,7 +311,7 @@
             </div>
             <div class="col mb-6">
                 <div class="gallery-item">
-                    <img src="assets/images/photos/gallery2.png" alt="Instagram Image">
+                    <img src="{{ url('user/assets/images/photos/gallery2.png') }}" alt="Instagram Image">
                     <a class="gallery-overlay" target="_blank" rel="noopener" href="#">
                         <i class="fa fa-instagram"></i>
                     </a>
@@ -319,7 +319,7 @@
             </div>
             <div class="col mb-6">
                 <div class="gallery-item">
-                    <img src="assets/images/photos/gallery3.png" alt="Instagram Image">
+                    <img src="{{ url('user/assets/images/photos/gallery3.png') }}" alt="Instagram Image">
                     <a class="gallery-overlay" target="_blank" rel="noopener" href="#">
                         <i class="fa fa-instagram"></i>
                     </a>
@@ -327,7 +327,7 @@
             </div>
             <div class="col mb-6">
                 <div class="gallery-item">
-                    <img src="assets/images/photos/gallery4.png" alt="Instagram Image">
+                    <img src="{{ url('user/assets/images/photos/gallery4.png') }}" alt="Instagram Image">
                     <a class="gallery-overlay" target="_blank" rel="noopener" href="#">
                         <i class="fa fa-instagram"></i>
                     </a>
@@ -335,7 +335,7 @@
             </div>
             <div class="col mb-6">
                 <div class="gallery-item">
-                    <img src="assets/images/photos/gallery5.png" alt="Instagram Image">
+                    <img src="{{ url('user/assets/images/photos/gallery5.png') }}" alt="Instagram Image">
                     <a class="gallery-overlay" target="_blank" rel="noopener" href="#">
                         <i class="fa fa-instagram"></i>
                     </a>

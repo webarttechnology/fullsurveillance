@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('name')->nullable();
-            $table->text('img')->nullable();
+            $table->text('img')->nullable();  //// optional if you need
             $table->enum('status', ['Active', 'Inactive']);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');

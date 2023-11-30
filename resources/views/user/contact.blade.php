@@ -2,9 +2,15 @@
 @section('meta_desc', 'Contact | full Surveilance')
 @extends('user.master.layout')
 @section('content')
+<style>
+    .spinner-border {
+         top: 8px;
+         right: 15px;
+    }
+</style>
 <main class="main-content">
             <!--== Start Page Header Area Wrapper ==-->
-            <div class="page-header-area">
+            {{-- <div class="page-header-area">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6">
@@ -23,13 +29,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--== End Page Header Area Wrapper ==-->
 
             <!--== Start Contact Area Wrapper ==-->
             <div class="contact-area section-top-space">
                 <div class="container">
-                    <div class="contact-wrp" data-bg-img="assets/images/photos/bg4.png">
+                    <div class="contact-wrp" data-bg-img="{{ url('user/assets/images/photos/bg4.png')}}">
                         <div class="row">
                             <div class="col-lg-5 col-xl-4">
                                 <div class="contact-info-area">
@@ -38,7 +44,7 @@
                                     <!--== Start Contact Info Item ==-->
                                     <div class="contact-info-item">
                                         <div class="contact-info-icon">
-                                            <img src="assets/images/icons/pin2.png" alt="Icon">
+                                            <img src="{{ url('user/assets/images/icons/pin2.png') }}" alt="Icon">
                                         </div>
                                         <div class="contact-info-content">
                                             <h4 class="contact-info-title mb-2 mt-n1">Head Office</h4>
@@ -50,7 +56,7 @@
                                     <!--== Start Contact Info Item ==-->
                                     <div class="contact-info-item">
                                         <div class="contact-info-icon">
-                                            <img src="assets/images/icons/call.png" alt="Icon">
+                                            <img src="{{ url('user/assets/images/icons/call.png') }}" alt="Icon">
                                         </div>
                                         <div class="contact-info-content">
                                             <h4 class="contact-info-title mb-2 mt-n1">Phone</h4>
@@ -63,7 +69,7 @@
                                     <!--== Start Contact Info Item ==-->
                                     <div class="contact-info-item">
                                         <div class="contact-info-icon">
-                                            <img src="assets/images/icons/email.png" alt="Icon">
+                                            <img src="{{ url('user/assets/images/icons/email.png') }}" alt="Icon">
                                         </div>
                                         <div class="contact-info-content">
                                             <h4 class="contact-info-title mt-n1">Email</h4>
@@ -78,34 +84,46 @@
                                 <div class="contact-form-area">
                                     <h3 class="contact-form-title text-black">Get In Touch</h3>
                                     <!--== Start Contact Form ==-->
-                                    <form class="contact-form" id="contact-form" action="https://htmldemo.net/elehaus/elehaus/assets/php/mail.php" method="post">
+                                    <form class="contact-form" id="contact-form" action="{{ url('contact-send') }}" method="post">
+                                         @csrf
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-input-item">
-                                                    <input class="form-control" type="text" name="con_name" id="name" placeholder="Your Name">
+                                                    <input class="form-control" type="text" name="name" id="name" placeholder="Your Name">
                                                     <i class="icon fa fa-user"></i>
+                                                    <span class="contact-name-error text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-input-item">
-                                                    <input class="form-control" type="email" name="con_email" id="mail" placeholder="Enter Your Mail">
+                                                    <input class="form-control" type="email" name="email" id="mail" placeholder="Enter Your Mail">
                                                     <i class="icon fa fa-envelope"></i>
+                                                    <span class="contact-email-error text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-input-item">
-                                            <input class="form-control" type="text" name="con_subject" id="subject" placeholder="Your Subject">
+                                            <input class="form-control" type="text" name="subject" id="subject" placeholder="Your Subject">
                                             <i class="icon fa fa-phone-square"></i>
+                                            <span class="contact-subject-error text-danger"></span>
                                         </div>
                                         <div class="form-input-item">
-                                            <textarea class="form-control" name="con_message" id="message" placeholder="Your Message"></textarea>
+                                            <textarea class="form-control" name="message" id="message" placeholder="Your Message"></textarea>
+                                            <span class="contact-message-error text-danger"></span>
                                         </div>
-                                        <button class="btn btn-theme btn-submit mt-2" type="submit">Submit Now <i class="icon fa fa-arrow-right"></i></button>
+                                        <button class="btn btn-theme btn-submit mt-2 position-relative" type="submit">Submit Now 
+                                            <i class="icon fa fa-arrow-right"></i>
+                                                <div class="icon spinner-border position-absolute d-none" role="status">
+                                                    <span class="sr-only mt-2">Loading...</span>
+                                                </div>
+                                        </button>
                                     </form>
                                     <!--== End Contact Form ==-->
 
                                     <!--== Message Notification ==-->
-                                    <div class="form-message"></div>
+                                    {{-- <div class="form-message"></div> --}}
+                                    <div class="contact-success-msg alert alert-success mt-4 d-none"></div>
+                                    <div class="contact-error-msg alert alert-danger mt-4 d-none"></div>
                                 </div>
                             </div>
                         </div>
@@ -120,4 +138,72 @@
             </div>
             <!--== End Map Area Wrapper ==-->
 </main>
+@endsection
+@section('script')
+
+<script>
+
+   
+
+  
+
+     $('.contact-form').on('submit', function(e){
+            e.preventDefault();
+
+            ClearRegistrationError();
+
+            var form = $(this)[0];
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                beforeSend: function() { 
+                    $('.spinner-border').removeClass('d-none');
+                    $(".btn-submit").prop('disabled', true); // disable button
+                },
+                success:function(data){
+                    $(".btn-submit").prop('disabled', false); 
+                    $('.spinner-border').addClass('d-none');
+                    if(data.status == 'success'){
+                        $('.contact-success-msg').removeClass('d-none');
+                        $('.contact-success-msg').text(data.msg).delay(5000).fadeOut('slow');
+                        form.reset();
+                    }else if(data.status == 'error'){
+                        $('.contact-error-msg').removeClass('d-none');
+                        $('.contact-error-msg').text(data.msg).delay(5000).fadeOut('slow');
+                    }
+                },
+                error:function(data){
+                    $('.spinner-border').addClass('d-none');
+                    $(".btn-submit").prop('disabled', false); 
+                    $('.form-input-item .icon').css({'top': '30%'});
+                    if(data.responseJSON.errors.name){
+                        $('.contact-name-error').text(data.responseJSON.errors.name[0]);
+                     }
+                     if(data.responseJSON.errors.email){
+                        $('.contact-email-error').text(data.responseJSON.errors.email[0]);
+                     }
+                     if(data.responseJSON.errors.subject){
+                        $('.contact-subject-error').text(data.responseJSON.errors.subject[0]);
+                     } 
+                     if(data.responseJSON.errors.message){
+                        $('.contact-message-error').text(data.responseJSON.errors.message[0]);
+                     }
+                    }
+            });
+    });
+
+        function ClearRegistrationError(){
+            $('.form-input-item .icon').css({'top': '50%'});
+            $('.contact-success-msg').addClass('d-none');
+            $('.contact-error-msg').addClass('d-none');
+            $('.contact-name-error').text('');
+            $('.contact-email-error').text('');
+            $('.contact-subject-error').text('');
+            $('.contact-message-error').text('');
+        }
+
+</script>
+ 
 @endsection

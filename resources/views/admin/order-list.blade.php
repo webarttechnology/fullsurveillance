@@ -38,7 +38,7 @@
                                             <td>{{ $item->order_generate_id }}</td>
                                             <td>{{ $item->payment_gateway_id }}</td>
                                             <td>${{ $item->payable_amount }}</td>
-                                            <td>{{ $item->created_at->format('d/M/Y') }}</td>
+                                            <td>{{ $item->created_at->format('d/M/Y h:i A') }}</td>
                                             <td>
                                                 <span class="badge  {{  $item->status == 'Success' ? 'badge-success' : 'badge-danger' }}">{{ $item->status }}</span>
                                             </td>
