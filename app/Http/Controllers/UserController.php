@@ -298,7 +298,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->mobile = $request->mobile;
-            if($request->newPwd!=null){
+            if($request->newPwd !=null && $request->currentPwd !=null){
                 $user->password = bcrypt($request->newPwd);
             }
             $user->update();
@@ -311,7 +311,7 @@ class UserController extends Controller
     public function addRatings($prod_id){
         $product   = Product::where('id',$prod_id)->first();
         $checkrating = Ratings::where('user_id',Auth::user()->id)->where('product_id', $product->id)->first();
-        return view('user.productIndex', compact('product','checkrating'));
+        return view('user.product-rating', compact('product','checkrating'));
     } 
 
     public function getAllProducts(Request $request)

@@ -189,28 +189,35 @@
 
                 <div class="tab-pane" id="review" role="tabpanel" aria-labelledby="review-tab">
                     <!--== Start Reviews Content Item ==-->
+                    @foreach ($allreview as $reviewdata)
                     <div class="product-review-item">
                         <div class="product-review-top">
                             <div class="product-review-thumb">
                                 <img src="{{ url('user/assets/images/shop/details/c1.png') }}" alt="Images">
                             </div>
                             <div class="product-review-content">
-                                <h4 class="product-review-name">Tomas Doe</h4>
-                                <h5 class="product-review-designation">Delveloper</h5>
+                                <h4 class="product-review-name">{{ ucfirst(@$reviewdata->user_data->name) }}</h4>
+                                {{-- <h5 class="product-review-designation">Delveloper</h5> --}}
                                 <div class="product-review-icon">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
+                                    {{-- <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i> --}}
+                                    @for ($i = 1; $i <= $reviewdata->star_rating; $i++)
+                                        <i class="fa fa-star"></i>
+                                    @endfor
+
+                                    @for ($i = $reviewdata->star_rating + 1; $i <= 5; $i++)
+                                        <i class="fa fa-star-o"></i>
+                                    @endfor
                                 </div>
                             </div>
                         </div>
-                        <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra amet,
-                            sodales faucibus nibh. Vivamus amet potenti ultricies nunc gravida duis. Nascetur
-                            scelerisque massa sodales egestas augue neque euismod scelerisque viverra.</p>
+                        <p class="desc">{{ $reviewdata->comment }}</p>
                         <button type="button" class="review-reply"><i class="fa fa fa-undo"></i></button>
                     </div>
+                @endforeach
                     <!--== End Reviews Content Item ==-->
 
                     <!--== Start Reviews Content Item ==-->

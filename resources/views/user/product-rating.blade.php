@@ -1,5 +1,5 @@
-@section('title', 'My Account | full Surveilance')
-@section('meta_desc', 'My Account | full Surveilance')
+@section('title', 'Product rating | full Surveilance')
+@section('meta_desc', 'Product rating | full Surveilance')
 @extends('user.master.layout')
 @section('content')
     <main class="main-content">
@@ -10,15 +10,11 @@
                         <div class="product-detail-thumb me-lg-6">
                             <div class="swiper single-product-thumb-slider">
                                 <div class="swiper-wrapper">
-
                                     @foreach ($product->product_image as $item)
-                                        <a class="lightbox-image swiper-slide" data-fancybox="gallery"
-                                            href="{{ url($item->img ?? '#') }}">
-                                            <img src="{{ url($item->img ?? '#') }}" width="640" height="530"
-                                                alt="Image">
+                                        <a class="lightbox-image swiper-slide" data-fancybox="gallery" href="{{ url($item->img ?? '#') }}">
+                                            <img src="{{ url($item->img ?? '#') }}" width="640" height="530" alt="Image">
                                         </a>
                                     @endforeach
-
                                 </div>
                                 <!-- swiper pagination -->
                                 <div class="swiper-pagination"></div>
@@ -32,7 +28,6 @@
                                                     height="127">
                                             </div>
                                         @endforeach
-
                                     </div>
                                 </div>
                                 <div class="swiper-button-style11">
@@ -104,14 +99,9 @@
                                     {{-- <textarea class="form-control" cols="20" rows="5" placeholder="Write Your Comments !!!!!!!">{{ $checkrating->comment }}</textarea> --}}
                                 </div>
                             @endif
-
-
-                          
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </main>

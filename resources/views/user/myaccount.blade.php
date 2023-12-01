@@ -123,7 +123,7 @@
                                                 <div id="password-section" style="display: none;">
                                                     <div class="single-input-item">
                                                         <label for="current-pwd" class="required">Current Password</label>
-                                                        <input type="password" id="current-pwd" name="current-pwd" />
+                                                        <input type="password" id="current-pwd" name="currentPwd" />
                                                     </div>
                                                     <div id="error-message" style="display: none; color: red;"></div>
                                                     <div class="row">
@@ -223,6 +223,8 @@
         });
 
         $(document).ready(function() {
+           
+
             $('#confirm-pwd').on('input', function() {
                 var newPassword = $('#new-pwd').val();
                 var confirmPassword = $(this).val();
@@ -230,10 +232,14 @@
                 var submitBtn = $('#submit-btn');
                 if (newPassword !== confirmPassword) {
                     errorMsg.css('display', 'block');
+                    submitBtn.prop('disabled', true);
                 } else {
                     errorMsg.css('display', 'none');
+                    submitBtn.prop('disabled', false);
                 }
             });
+
+        
 
             $('#password').change(function() {
                 if ($(this).is(':checked')) {

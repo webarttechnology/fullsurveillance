@@ -67,7 +67,6 @@ Route::controller(CartControler::class)->group(function () {
     Route::get('/wishlist', 'wishlist');
     Route::post('/total-wishlist-count', 'total_wishlist_count');
     Route::post('/cart-total-amount', 'cart_total_amount');
-
 });
 
 
@@ -96,10 +95,8 @@ Route::controller(StripeController::class)->group(function () {
 /* For Paypal Payment Success */
 Route::get('paypal/success', [PaypalPaymentController::class, 'success'])->name('payment.success');
 
-
 Route::controller(RatingsController::class)->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::post('/save-rating', 'saveRating');
     });
 });
-
