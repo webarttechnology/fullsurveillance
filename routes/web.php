@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartControler;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\CheckoutControler;
+use App\Http\Controllers\RatingsController;
 use App\Http\Controllers\PaypalPaymentController;
 
 /*
@@ -35,11 +37,16 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/register-action', 'register_action');
     Route::post('/login-action', 'login_action');
     Route::post('/get-product-view', 'get_product_view');
-
     Route::post('/contact-send', 'contact_send');
 
     Route::middleware(['auth', 'prevent-back-history'])->group(function () {
         Route::get('/logout', 'logout');
+
+        Route::get('/my-account', 'myAccount');
+        Route::post('/check-password', 'checkPassword');
+        Route::post('/update-account', 'updateAccount');
+        Route::get('/add-ratings/{prod_id}', 'addRatings');
+        Route::post('/get-allproduct', 'getAllProducts');
     });
 
 });
@@ -89,4 +96,10 @@ Route::controller(StripeController::class)->group(function () {
 /* For Paypal Payment Success */
 Route::get('paypal/success', [PaypalPaymentController::class, 'success'])->name('payment.success');
 
+
+Route::controller(RatingsController::class)->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::post('/save-rating', 'saveRating');
+    });
+});
 

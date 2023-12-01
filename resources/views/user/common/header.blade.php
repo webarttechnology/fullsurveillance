@@ -47,6 +47,35 @@ if(Auth::check() == true){
             border-color: #02327e !important;
             color: #FFFFFF !important;
          }
+
+         .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            font-size: 1.5em;
+            justify-content: space-around;
+            padding: 0 .2em;
+            text-align: center;
+            width: 5em;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .star-rating :checked~label {
+            color: #f90;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            color: #fc0;
+        }
+        
     </style>
 </head>
 <body>
@@ -120,6 +149,11 @@ if(Auth::check() == true){
                                 <i class="cart-icon icon-handbag"></i>
                                 <span class="cart-count cart-count-show">{{ cart_count() }}</span>
                             </button>
+                            @if (Auth::check() == true)
+                                <a class="header-action-user" href="{{ url('my-account') }}">
+                                    <i class="icon-user"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -177,14 +211,16 @@ if(Auth::check() == true){
                                             class="icon fa fa-angle-down"></i></button>
                                     <ul class="vmenu-content vmenu-content-none">
                                         @foreach (App\Models\Category::where('status', 'Active')->get() as $item)
+                                        @if (count($item->product) > 0)
                                         <li class="vmenu-item">
-                                            <a href="#"> 
+                                            <a href="{{ url('shop?cate='.$item->name.'') }}"> 
                                              <span class="icon">
                                                 <img src="{{ url($item->img ?? '#') }}" width="24px" height="24px" alt="Icon">
                                               </span>
                                                {{ $item->name }}
                                             </a>
                                           </li>
+                                        @endif
                                          @endforeach
                                     </ul>
                                     <!-- menu content -->

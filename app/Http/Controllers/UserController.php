@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Contact;
 use App\Models\Product;
+use App\Models\Ratings;
 use App\Models\Category;
 use App\Mail\ContactMail;
+use App\Models\OrderDetail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,6 +102,10 @@ class UserController extends Controller
     public function item($id){
 
         $data['product']    = Product::find($id);
+        $data['rating'] = Ratings::where('product_id', $data['product']->id)->pluck('star_rating');
+        $data['review'] = Ratings::where('product_id', $data['product']->id)->whereNotNull('comment')->pluck('comment');
+        $data['allreview'] = Ratings::with('user_data')->where('product_id', $data['product']->id)->get();
+        $data['averageRating'] =$data['rating']->avg();
 
         return view('user.product', $data);
     } 
@@ -259,6 +267,58 @@ class UserController extends Controller
          return response()->json(['status' => 'error', 'msg' => 'Server error please try again!']);
 
     } 
+
+
+    public function myAccount(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $orders = Order::with('order_detail')->where('user_id', $user->id)->orderBy('id', 'desc')->where('status', 'Success')->get();
+        return view('user.myaccount', compact('user','orders'));
+    }
+
+    public function checkPassword(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $currentPassword = $request->input('current_password');
+        if (Hash::check($currentPassword, $user->password)) {
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
+    }
+
+    public function updateAccount(Request $request)
+    {
+        $request->validate([
+            'name'          => 'required',
+            'mobile'        => 'required|max:10',
+            'email'         => 'required|email',
+        ]);   
+        try{
+            $user = User::where('id',Auth::user()->id)->first();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->mobile = $request->mobile;
+            if($request->newPwd!=null){
+                $user->password = bcrypt($request->newPwd);
+            }
+            $user->update();
+            return redirect(url('/'));
+          }catch(Exception $e){
+            return response()->json(['status'=>false,'message'=>'User not Updated.','error'=>$e->getMessage()]);
+          }
+    }
+
+    public function addRatings($prod_id){
+        $product   = Product::where('id',$prod_id)->first();
+        $checkrating = Ratings::where('user_id',Auth::user()->id)->where('product_id', $product->id)->first();
+        return view('user.productIndex', compact('product','checkrating'));
+    } 
+
+    public function getAllProducts(Request $request)
+    {
+        $orderdetail = OrderDetail::where('user_id',Auth::user()->id)->where('order_id',$request->id)->get();
+        return view('user.data.allproduct-list', compact('orderdetail'))->render();
+    }
     
 
 }

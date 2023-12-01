@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Mail\OrderMail;
 use App\Models\{Order};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Epmnzava\PaypalLaravel\PaypalLaravel as Paypal;
 
@@ -54,6 +56,16 @@ class PaypalPaymentController extends Controller
                 'status' => 'Success',
             ]);
 
+            $data = Order::find(Session::get("paymentDetails.orderId"));
+
+            ////// Mail Send
+
+            // test51@yopmail.com
+
+            // safikul.islam1@webart.technology
+    
+            Mail::to('test51@yopmail.com')->send(new OrderMail($data));
+    
             Cart::where('user_id', Auth::id())->delete();
     
             return view('user.success');

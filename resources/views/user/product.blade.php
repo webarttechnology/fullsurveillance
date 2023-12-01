@@ -54,7 +54,7 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star-half-o"></i>
                             </div>
-                            <p class="product-detail-review-show">( 1 Review )</p>
+                            <p class="product-detail-review-show">( {{ count($review) }} Review )</p>
                         </div>
                         {{-- <div class="product-size-list">
                             <div class="product-size-list-check">

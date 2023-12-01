@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -157,6 +158,13 @@ class AdminController extends Controller
         return view('admin.contact-list');
     }
 
+    public function contact_edit($id)
+    {
+        $contact = Contact::find($id);
+        return view('admin.contact-edit', compact('contact'));
+    }
+
+    
     
     
 

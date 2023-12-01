@@ -20,7 +20,7 @@
             <div class="text-center">
                 <h1>Thank You !</h1>
                 <p>We've send order confirm to your inbox, please check your inbox.</p>
-                <a href="{{ url('/') }}" class="btn-register-now">Back Home</a>
+                <a href="{{ url('/my-account') }}" class="btn-register-now">My Order</a>
             </div>
         </div>
     </div>

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Mail\OrderMail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Stripe\Exception\CardException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,13 +21,13 @@ class StripeController extends Controller
         try {
             
             $stripe = new \Stripe\StripeClient('sk_test_51MmXfKSCgMR7q6bkWzyl3Im8Geip19fTgonFzBjR3SMcpsNhCE7tFvgR12g7fJCAd8ppSsFCmeRzRJIjYTNkVmSx009rBYW42x');
-            $product = $stripe->products->create(['name' => 'Imboxo']);
+            $product = $stripe->products->create(['name' => 'FullSurveillance']);
 
             $price = $stripe->prices->create(
                 [
-                 'currency' => 'usd',
-                 'product' => $product-> id,
-                 "unit_amount" =>$amount * 100
+                 'currency'     => 'usd',
+                 'product'      => $product-> id,
+                 "unit_amount"  => $amount * 100
                 ]
              );
             
@@ -83,6 +85,14 @@ class StripeController extends Controller
             'payment_gateway_id' => Session::get("paymentDetails.payment_id.id"),
             'status' => 'Success',
         ]);
+
+        $data = Order::find(Session::get("paymentDetails.orderId"));
+
+        ////// Mail Send
+
+        Mail::to('safikul.islam1@webart.technology')->send(new OrderMail($data));
+
+        //// Cart item remove
 
         Cart::where('user_id', Auth::id())->delete();
 
