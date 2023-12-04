@@ -28,7 +28,7 @@
                             <input type="hidden" name="item_count_wishlist[]" value="{{ $item->product_id }}" class="total-wishlist-item">
                             <td class="product-remove"><a href="#" class="action-btn-wishlist" data-id="{{ $item->product_id }}">×</a></td>
                             <td class="product-thumbnail">
-                                <a href="{{ url('item', $item->product_id) }}"><img src="{{ url($item->product->product_image[0]->img)}}" alt="Image" width="96" height="96"></a>
+                                <a href="{{ url('item', $item->product_id) }}"><img src="{{ url($item->product->product_image[0]->img ?? '#')}}" alt="Image" width="96" height="96"></a>
                             </td>
                             <td class="product-name">
                                 <h5><a href="{{ url('item', $item->product_id) }}">{{ $item->product->name }}</a></h5>

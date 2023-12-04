@@ -2,6 +2,14 @@
 @section('meta_desc', 'Service | full Surveilance')
 @extends('user.master.layout')
 @section('content')
+<style>
+    .product-list-info .info-bottom {
+        padding-right: 0px !important;
+    }
+    .pro-qty input {
+      height: 35px !important;
+    }
+</style>
 <main class="main-content">
     <!--== Start Product Area Wrapper ==-->
     <div class="product-area section-space">
@@ -16,29 +24,19 @@
                         type="button" role="tab" aria-controls="nav-list" aria-selected="false"><i
                             class="icon-list icons"></i></button>
                 </div>
-                <select class="select-shoing">
-                    <option data-display="Default Sorting">Default Sorting</option>
-                    <option value="3">Price: low to high</option>
-                    <option value="4">Price: high to low</option>
+                <select class="select-shoing search-sorting">
+                    <option value="default">Default Sorting</option>
+                    <option value="low">Price: low to high</option>
+                    <option value="high">Price: high to low</option>
                 </select>
                 <div class="product-showing-count">
                     Showing <span>1–{{ $product->count() }}</span> of <span>{{ $product->total() }}</span> results
                 </div>
-                {{-- <nav class="pagination-area ms-md-auto mt-3 mt-md-0">
-                    <ul class="page-numbers">
-                        <li>
-                            <a class="page-number active" href="#">1</a>
-                        </li>
-                        <li>
-                            <a class="page-number" href="#">2</a>
-                        </li>
-                        <li>
-                            <a class="page-number next" href="#">
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav> --}}
+                <nav class="pagination-area ms-md-auto mt-3 mt-md-0">
+                    @if ($product->hasPages())
+                    {{ $product->onEachSide(3)->links('user.data.custom_pagination') }}
+                    @endif
+                </nav>
             </div>
             <!--== End Product Top Bar Area Wrapper ==-->
             <div class="tab-content" id="nav-tabContent">
@@ -126,21 +124,11 @@
                         </div> --}}
 
                         <div class="col-12">
-                            {{-- <nav class="pagination-area mt-6 mb-6">
-                                <ul class="page-numbers justify-content-center">
-                                    <li>
-                                        <a class="page-number active" href="#">1</a>
-                                    </li>
-                                    <li>
-                                        <a class="page-number" href="#">2</a>
-                                    </li>
-                                    <li>
-                                        <a class="page-number next" href="#">
-                                            <i class="icon-arrow-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav> --}}
+                            <nav class="pagination-area mt-6 mb-6">
+                                @if ($product->hasPages())
+                                    {{ $product->onEachSide(3)->links('user.data.custom_pagination') }}
+                                @endif
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -234,4 +222,20 @@
     </div>
 <!--== End Product Area Wrapper ==-->
 </main>
+@endsection
+
+@section('script')
+<script>
+    $(function(){
+        $(document).on('change','.search-sorting',function(){
+            if($(this).val() == 'default'){
+                var url =  window.location.origin + '/service';
+            }else{
+                var url =  window.location.origin + '/service' +'?sort=' + $(this).val();
+            }
+            // console.log(url);
+            window.location = url;
+        });
+    });
+</script>
 @endsection

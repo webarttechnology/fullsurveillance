@@ -22,29 +22,19 @@
                             <button class="nav-link active" id="column-three-tab" data-bs-toggle="tab" data-bs-target="#column-three" type="button" role="tab" aria-controls="column-three" aria-selected="true"><i class="icon-grid icons"></i></button>
                             <button class="nav-link mr-0" id="nav-list-tab" data-bs-toggle="tab" data-bs-target="#nav-list" type="button" role="tab" aria-controls="nav-list" aria-selected="false"><i class="icon-list icons"></i></button>
                         </div>
-                        <select class="select-shoing">
-                            <option data-display="Default Sorting">Default Sorting</option>
-                            <option value="3">Price: low to high</option>
-                            <option value="4">Price: high to low</option>
+                        <select class="select-shoing search-sorting">
+                            <option value="default">Default Sorting</option>
+                            <option value="low">Price: low to high</option>
+                            <option value="high">Price: high to low</option>
                         </select>
                         <div class="product-showing-count">
                             Showing <span>1–{{ $product->count() }}</span> of <span>{{ $product->total() }}</span> results
                         </div>
-                        {{-- <nav class="pagination-area ms-md-auto mt-3 mt-md-0">
-                            <ul class="page-numbers">
-                                <li>
-                                    <a class="page-number active" href="shop.html">1</a>
-                                </li>
-                                <li>
-                                    <a class="page-number" href="shop.html">2</a>
-                                </li>
-                                <li>
-                                    <a class="page-number next" href="shop.html">
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav> --}}
+                        <nav class="pagination-area ms-md-auto mt-3 mt-md-0">
+                              @if ($product->hasPages())
+                              {{ $product->onEachSide(3)->links('user.data.custom_pagination') }}
+                              @endif
+                        </nav>
                     </div>
                     <!--== End Product Top Bar Area Wrapper ==-->
                     <div class="tab-content" id="nav-tabContent">
@@ -79,13 +69,6 @@
                                         <div class="product-item-info text-center pb-6">
                                             <h5 class="product-item-title mb-2"><a href="{{ url('item', $item->id) }}">{{ $item->name }}</a></h5>
                                             <div class="product-item-price">${{ number_format($item->discount_price, 2) }} - <span class="price-old">${{ number_format($item->actual_price, 2) }}</span></div>
-                                            {{-- <div class="product-item-review-icon">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div> --}}
                                         </div>
                                     </div>
                                     <!--== End Product Item ==-->
@@ -96,23 +79,13 @@
                                      <span class="text-danger text-center mt-5">No Record Found</span>
                                 @endif
 
-                                {{-- <div class="col-12">
+                                <div class="col-12">
                                     <nav class="pagination-area mt-6 mb-6">
-                                        <ul class="page-numbers justify-content-center">
-                                            <li>
-                                                <a class="page-number active" href="shop.html">1</a>
-                                            </li>
-                                            <li>
-                                                <a class="page-number" href="shop.html">2</a>
-                                            </li>
-                                            <li>
-                                                <a class="page-number next" href="shop.html">
-                                                    <i class="icon-arrow-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        @if ($product->hasPages())
+                                        {{ $product->onEachSide(3)->links('user.data.custom_pagination') }}
+                                        @endif
                                     </nav>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade product-list-items" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
@@ -244,4 +217,20 @@
     </div>
     <!--== End Product Area Wrapper ==-->
 </main>
+@endsection
+
+@section('script')
+<script>
+    $(function(){
+        $(document).on('change','.search-sorting',function(){
+            if($(this).val() == 'default'){
+                var url =  window.location.origin + '/shop';
+            }else{
+                var url =  window.location.origin + '/shop' +'?sort=' + $(this).val();
+            }
+            // console.log(url);
+            window.location = url;
+        });
+    });
+</script>
 @endsection

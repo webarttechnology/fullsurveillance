@@ -3,6 +3,16 @@
 @extends('user.master.layout')
 @section('content')
 <main class="main-content">
+<style>
+     .product-action-btn {
+        text-align: center;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+     }
+</style>
 
     <!--== Start Product Detail Area Wrapper ==-->
     <div class="product-detail-area section-space">
@@ -48,33 +58,12 @@
                         <div class="product-detail-price">${{ number_format($product->discount_price, 2) }} - <span class="price-old">${{ number_format($product->actual_price, 2) }}</span></div>
                         <div class="product-detail-review">
                             <div class="product-detail-review-icon">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
+                                <i data-star="{{ $averageRating }}"></i>
                             </div>
                             <p class="product-detail-review-show">( {{ count($review) }} Review )</p>
                         </div>
-                        {{-- <div class="product-size-list">
-                            <div class="product-size-list-check">
-                                <input class="form-check-input" type="radio" name="flexRadioSizeList" id="sizeSList1">
-                                <label class="form-check-label" for="sizeSList1">S</label>
-                            </div>
-                            <div class="product-size-list-check">
-                                <input class="form-check-input" type="radio" name="flexRadioSizeList" id="sizeMList1">
-                                <label class="form-check-label" for="sizeMList1">M</label>
-                            </div>
-                            <div class="product-size-list-check">
-                                <input class="form-check-input" type="radio" name="flexRadioSizeList" id="sizeLList1">
-                                <label class="form-check-label" for="sizeLList1">L</label>
-                            </div>
-                            <div class="product-size-list-check me-0">
-                                <input class="form-check-input" type="radio" name="flexRadioSizeList" id="sizeXLList1">
-                                <label class="form-check-label" for="sizeXLList1">XL</label>
-                            </div>
-                        </div> --}}
-                        <div class="product-color-list">
+
+                        {{-- <div class="product-color-list">
                             <h4>Color:</h4>
                             <div class="product-color-list-check">
                                 <input class="form-check-input bg-red" type="radio" name="flexRadioColorList" id="colorList1">
@@ -90,7 +79,7 @@
                                     id="colorList3">
                                 <label class="form-check-label" for="colorList3">Blue</label>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         {{-- <p class="product-detail-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
@@ -110,13 +99,18 @@
                        
                         </div>
                         <div>
-                            <button type="button" class="product-detail-compare-btn" data-bs-toggle="modal"
-                                data-bs-target="#action-CompareModal">
+                            @php
+                            if(Auth::check()){
+                               $wishlistCheck  = App\Models\Wishlist::where('product_id', $product->id)->where('user_id', Auth::id())->first();
+                            }else{
+                                $wishlistCheck = App\Models\Wishlist::where('product_id', $product->id)->where('uuid', Session::get('uuid'))->first();
+                            }
+                          @endphp
+                            <button type="button" class="product-detail-compare-btn">
                                 <i class="icon icon-shuffle"></i> Compare
                             </button>
-                            <button type="button" class="product-detail-wishlist-btn" data-bs-toggle="modal"
-                                data-bs-target="#action-WishlistModal">
-                                <i class="icon icon-heart"></i> Add to wishlist
+                            <button type="button" class="product-action-btn action-btn-wishlist {{ $wishlistCheck  ? 'active-wishlist' : '' }}" data-id="{{ $product->id }}">
+                                <i class="icon-heart"></i>
                             </button>
                         </div>
                         <!--== Start Features Area Wrapper ==-->
@@ -175,17 +169,6 @@
                     </p>
                 </div>
 
-                {{-- <div class="tab-pane" id="specification" role="tabpanel" aria-labelledby="specification-tab">
-                    <ul class="product-detail-info-wrap">
-                        <li><span>Weight :</span> 250 g</li>
-                        <li><span>Dimensions :</span>10 x 10 x 15 cm</li>
-                        <li><span>Materials :</span> 60% cotton, 40% polyester</li>
-                        <li><span>Other Info :</span> American heirloom jean shorts pug seitan letterpress</li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius velit corporis quo voluptate culpa
-                        soluta, esse accusamus, sunt quia omnis amet temporibus sapiente harum quam itaque libero
-                        tempore. Ipsum, ducimus. lorem</p>
-                </div> --}}
 
                 <div class="tab-pane" id="review" role="tabpanel" aria-labelledby="review-tab">
                     <!--== Start Reviews Content Item ==-->
@@ -197,13 +180,7 @@
                             </div>
                             <div class="product-review-content">
                                 <h4 class="product-review-name">{{ ucfirst(@$reviewdata->user_data->name) }}</h4>
-                                {{-- <h5 class="product-review-designation">Delveloper</h5> --}}
                                 <div class="product-review-icon">
-                                    {{-- <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i> --}}
                                     @for ($i = 1; $i <= $reviewdata->star_rating; $i++)
                                         <i class="fa fa-star"></i>
                                     @endfor
@@ -218,57 +195,6 @@
                         <button type="button" class="review-reply"><i class="fa fa fa-undo"></i></button>
                     </div>
                 @endforeach
-                    <!--== End Reviews Content Item ==-->
-
-                    <!--== Start Reviews Content Item ==-->
-                    {{-- <div class="product-review-item product-review-reply">
-                        <div class="product-review-top">
-                            <div class="product-review-thumb">
-                                <img src="{{ url('user/assets/images/shop/details/c2.png') }}" alt="Images">
-                            </div>
-                            <div class="product-review-content">
-                                <h4 class="product-review-name">Robat Fiftyk</h4>
-                                <h5 class="product-review-designation">UI/UX Designer</h5>
-                                <div class="product-review-icon">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra amet,
-                            sodales faucibus nibh. Vivamus amet potenti ultricies nunc gravida duis. Nascetur
-                            scelerisque massa sodales egestas augue neque euismod scelerisque viverra.</p>
-                        <button type="button" class="review-reply"><i class="fa fa fa-undo"></i></button>
-                    </div> --}}
-                    <!--== End Reviews Content Item ==-->
-
-                    <!--== Start Reviews Content Item ==-->
-                    {{-- <div class="product-review-item mb-0">
-                        <div class="product-review-top">
-                            <div class="product-review-thumb">
-                                <img src="assets/images/shop/details/c3.png" alt="Images">
-                            </div>
-                            <div class="product-review-content">
-                                <h4 class="product-review-name">Arry twentyk</h4>
-                                <h5 class="product-review-designation">UI/UX Designer</h5>
-                                <div class="product-review-icon">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra amet,
-                            sodales faucibus nibh. Vivamus amet potenti ultricies nunc gravida duis. Nascetur
-                            scelerisque massa sodales egestas augue neque euismod scelerisque viverra.</p>
-                        <button type="button" class="review-reply"><i class="fa fa fa-undo"></i></button>
-                    </div> --}}
-                    <!--== End Reviews Content Item ==-->
                 </div>
             </div>
             <!--== End Product Detail Tab Area Wrapper ==-->

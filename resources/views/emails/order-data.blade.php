@@ -32,9 +32,9 @@
             @foreach ( $order->order_detail as $item)
             <tr>
                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $item->product_name }}</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{ $item->amount }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{  number_format($item->amount, 2)  }}</td>
                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $item->quantity }}</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{ $item->amount * $item->quantity }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{  number_format($item->amount * $item->quantity, 2) }}</td>
           
             </tr>   
             @endforeach
@@ -42,17 +42,17 @@
             <!-- ... Add more rows as needed ... -->
             <tr>
                 <td colspan="3" style="text-align: right; border: 1px solid #dddddd; padding: 8px;">Subtotal</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{ $order->amount }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{ number_format($order->amount, 2)  }}</td>
             </tr>
             @if ($order->coupon_amount > 0)
             <tr>
                 <td colspan="3" style="text-align: right; border: 1px solid #dddddd; padding: 8px;">Coupon</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{ $order->coupon_amount }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{ number_format($order->coupon_amount, 2)  }}</td>
             </tr>
            @endif
             <tr>
                 <td colspan="3" style="text-align: right; font-weight: bold; border: 1px solid #dddddd; padding: 8px;">Total</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{ $order->payable_amount }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${{  number_format($order->payable_amount, 2) }}</td>
             </tr>
         </tbody>
     </table>

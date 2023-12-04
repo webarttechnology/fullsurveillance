@@ -46,7 +46,16 @@ class UserController extends Controller
     public function service(Request $request){
 
         $data['categories'] = Category::get();
-        $data['product']    = Product::orderBy('id', 'desc')->paginate(10);
+        
+
+
+        if($request->sort == 'low'){
+            $data['product']  = Product::orderBy('discount_price', 'desc')->paginate(10);
+        }elseif($request->sort == 'high'){
+            $data['product']  = Product::orderBy('discount_price', 'asc')->paginate(10);
+        }else{
+            $data['product']    = Product::orderBy('id', 'desc')->paginate(10); 
+        }
 
         return view('user.service', $data);
     } 
@@ -93,6 +102,14 @@ class UserController extends Controller
             }else{
                 $data['product']  = Product::orderBy('id', 'desc')->paginate(10);
             }
+        }
+
+        if($request->sort == 'low'){
+            $data['product']  = Product::orderBy('discount_price', 'desc')->paginate(10);
+        }elseif($request->sort == 'high'){
+            $data['product']  = Product::orderBy('discount_price', 'asc')->paginate(10);
+        }else{
+            $data['product']  = Product::orderBy('id', 'desc')->paginate(10); 
         }
 
         return view('user.shop', $data);

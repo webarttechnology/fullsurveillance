@@ -3,6 +3,12 @@
 @extends('user.master.layout')
 @section('content')
 <style>
+    .product-list-info .info-bottom {
+        padding-right: 0px !important;
+    }
+    .pro-qty input {
+      height: 35px !important;
+    }
     .saerch-title {
           font-size: 20px;
     }
@@ -12,7 +18,7 @@
     <div class="product-area section-space">
         <div class="container">
             <!--== Start Product Top Bar Area Wrapper ==-->
-            <h1 class="saerch-title mb-2">{{ $product->total() }} results for "{{ request()->s ?? 'All' }}"</h1>
+            <h1 class="saerch-title mb-2">{{ $product->total() }} results for "{{ request()->s ?? request()->cate }}"</h1>
               {{-- <span class="d-block mb-5">1 results for "shop"</span> --}}
 
             @if (count($product) > 0)
@@ -167,15 +173,13 @@
                                             <h5 class="product-list-title"><a href="{{ url('item', $item->id) }}">{{ $item->name }}</a></h5>
                                             <div class="info-bottom pr-0">
                                                 <div class="product-list-price">${{ number_format($item->discount_price, 2) }}</div>
-
                                                 <div class="d-flex justify-content-end">
-                                                <div class="pro-qty {{  cart_count_per_product($item->id) > 0 ? '' : 'd-none' }}" data-id="{{ $item->id }}">
-                                                    <div class="dec qty-btn dec-cart">-</div>
-                                                    <input type="text" title="Quantity" class="count-product" data-id="{{ $item->id }}" data-amount="{{ $item->discount_price }}" value="{{ cart_count_per_product($item->id) }}">
-                                                    <div class="inc qty-btn inc-cart">+</div>
-                                                </div>
-                                                <button class="info-btn-cart add-cart {{  cart_count_per_product($item->id) > 0 ? 'd-none' : '' }} " type="button" data-id="{{ $item->id }}"><i class="icon-handbag"></i></button>
-                                             
+                                                    <div class="pro-qty {{  cart_count_per_product($item->id) > 0 ? '' : 'd-none' }}" data-id="{{ $item->id }}">
+                                                        <div class="dec qty-btn dec-cart">-</div>
+                                                        <input type="text" title="Quantity" class="count-product" data-id="{{ $item->id }}" data-amount="{{ $item->discount_price }}" value="{{ cart_count_per_product($item->id) }}">
+                                                        <div class="inc qty-btn inc-cart">+</div>
+                                                    </div>
+                                                    <button class="info-btn-cart add-cart {{  cart_count_per_product($item->id) > 0 ? 'd-none' : '' }} " type="button" data-id="{{ $item->id }}"><i class="icon-handbag"></i></button>
                                                 </div>
                                                
 

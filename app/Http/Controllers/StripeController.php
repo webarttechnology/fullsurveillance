@@ -90,7 +90,7 @@ class StripeController extends Controller
 
         ////// Mail Send
 
-        Mail::to('safikul.islam1@webart.technology')->send(new OrderMail($data));
+        Mail::to('test51@yopmail.com')->send(new OrderMail($data));
 
         //// Cart item remove
 
