@@ -278,6 +278,28 @@
                             </div>
                         </li>
 
+                         <!-- Blog List -->
+                          <li class="has-sub {{ Request::segment(2) == 'blog' ? 'active' : '' }}">
+                            <a class="sidenav-item-link" href="javascript:void(0)">
+                                <i class="mdi mdi-dns-outline"></i>
+                                <span class="nav-text">Blog</span> <b class="caret"></b>
+                            </a>
+                            <div class="collapse">
+                                <ul class="sub-menu" data-parent="#sidebar-menu">
+                                    <li class="">
+                                        <a class="sidenav-item-link" href="{{ route('blog.create') }}">
+                                            <span class="nav-text">Add</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a class="sidenav-item-link" href="{{ route('blog.index') }}">
+                                            <span class="nav-text">List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
             </div>

@@ -248,6 +248,8 @@ if(Auth::check() == true){
                                             href="{{ url('/service') }}">Services</a></li>
                                         <li class="main-nav-item"><a class="main-nav-link"
                                             href="{{ url('/contact') }}">Contact Us</a></li>
+                                        <li class="main-nav-item"><a class="main-nav-link"
+                                                href="{{ url('/blog') }}">Blog</a></li>
                                     </ul>
                                 </div>
                             </div>

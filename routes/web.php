@@ -38,6 +38,8 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/login-action', 'login_action');
     Route::post('/get-product-view', 'get_product_view');
     Route::post('/contact-send', 'contact_send');
+    Route::get('/blog', 'blog');
+    Route::get('/blog-detail/{slug}', 'blog_detail');
 
     Route::middleware(['auth', 'prevent-back-history'])->group(function () {
         Route::get('/logout', 'logout');
@@ -67,6 +69,11 @@ Route::controller(CartControler::class)->group(function () {
     Route::get('/wishlist', 'wishlist');
     Route::post('/total-wishlist-count', 'total_wishlist_count');
     Route::post('/cart-total-amount', 'cart_total_amount');
+
+    Route::get('/compare', 'compareProduct');
+    Route::post('/add-comparelist', 'add_comparelist');
+    Route::get('/remove-compare/{id}', 'remove_comparelist');
+
 });
 
 

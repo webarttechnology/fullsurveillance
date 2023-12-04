@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -31,6 +32,7 @@ Route::group(['prefix' => 'admin' ], function () {
       Route::resource('order', OrderControler::class);
       Route::get('contact-lists', [AdminController::class, 'contact_list']);
       Route::get('contact-edit/{id}', [AdminController::class, 'contact_edit']);
+      Route::resource('blog', BlogController::class);
    });
 
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2023 at 10:46 AM
+-- Generation Time: Dec 04, 2023 at 01:18 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,6 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` text DEFAULT NULL,
+  `slug` text DEFAULT NULL,
+  `img` text DEFAULT NULL,
+  `desc` longtext DEFAULT NULL,
+  `status` enum('Active','Inactive') NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `blogs`
+--
+
+INSERT INTO `blogs` (`id`, `name`, `slug`, `img`, `desc`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'test11', 'test', 'http://127.0.0.1:8000/admin/img/blog/309445882_gallery7.jpg', '<p>jh kjhkjhkjh&nbsp;</p>', 'Active', '2023-12-04 05:09:30', '2023-12-04 05:32:12');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `carts`
 --
 
@@ -36,13 +60,6 @@ CREATE TABLE `carts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `product_id`, `user_id`, `uuid`, `quantity`, `created_at`, `updated_at`) VALUES
-(198, 4, NULL, NULL, '1', '2023-11-30 23:49:07', '2023-11-30 23:49:07');
 
 -- --------------------------------------------------------
 
@@ -66,6 +83,21 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name`, `img`, `status`, `created_at`, `updated_at`) VALUES
 (2, 'Camera', 'http://127.0.0.1:8000/admin/img/category/1648870062_logo.png', 'Active', '2023-11-21 00:53:27', '2023-11-22 00:51:11'),
 (3, 'gdffhdfh', 'http://127.0.0.1:8000/admin/img/category/1058981929_logo.png', 'Active', '2023-11-22 22:25:43', '2023-11-22 22:25:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `compares`
+--
+
+CREATE TABLE `compares` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `product_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `status` enum('Active','Inactive') NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -189,7 +221,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2023_11_27_094541_create_order_ship_addresses_table', 9),
 (28, '2023_11_27_094707_create_order_details_table', 9),
 (29, '2023_11_30_092746_create_contacts_table', 10),
-(30, '2023_11_30_065648_create_ratings_table', 11);
+(30, '2023_11_30_065648_create_ratings_table', 11),
+(31, '2023_12_04_095911_create_blogs_table', 12),
+(32, '2023_12_04_072535_create_compares_table', 13);
 
 -- --------------------------------------------------------
 
@@ -277,7 +311,8 @@ INSERT INTO `orders` (`id`, `user_id`, `coupon_id`, `amount`, `coupon_amount`, `
 (24, 4, NULL, '90', '0', '90', '270105', 'PAYID-MVUY7QY6W604388N2479800T', 'Enim porro et aut ne', 'paypal', 'Online', 'Success', '2023-12-01 02:18:16', '2023-12-01 02:18:36'),
 (25, 4, NULL, '90', '0', '90', '441044', 'PAYID-MVUZCRI5DV55646CH402533E', 'Architecto minus ill', 'paypal', 'Online', 'Success', '2023-12-01 02:24:42', '2023-12-01 02:25:03'),
 (26, 4, NULL, '90', '0', '90', '108368', 'PAYID-MVUZDRY5RE043035T1961304', 'Laborum voluptas quo', 'paypal', 'Online', 'Success', '2023-12-01 02:26:53', '2023-12-01 02:27:07'),
-(27, 4, NULL, '90', '0', '90', '243189', 'PAYID-MVU2RKQ4MC39406U44143548', 'Qui nostrud excepteu', 'paypal', 'Online', 'Success', '2023-12-01 04:04:30', '2023-12-01 04:04:45');
+(27, 4, NULL, '90', '0', '90', '243189', 'PAYID-MVU2RKQ4MC39406U44143548', 'Qui nostrud excepteu', 'paypal', 'Online', 'Success', '2023-12-01 04:04:30', '2023-12-01 04:04:45'),
+(28, 4, NULL, '90', '0', '90', '190396', 'PAYID-MVWVGRI10K89823JG613194B', 'Et qui alias reprehe', 'paypal', 'Online', 'Success', '2023-12-03 22:49:13', '2023-12-03 22:49:29');
 
 -- --------------------------------------------------------
 
@@ -329,7 +364,8 @@ INSERT INTO `order_billing_addresses` (`id`, `user_id`, `order_id`, `f_name`, `l
 (24, 4, 24, 'Mercedes', 'Keller', 'Steele and Mueller Traders', 'Consequatur necessi', 'Est lorem dolores qu', 'Nam voluptates ipsa', 'Voluptatem Est tota', 'Culpa illum rerum n', '+1 (696) 932-6189', 'gixugupym@mailinator.com', '2023-12-01 02:18:16', '2023-12-01 02:18:16'),
 (25, 4, 25, 'Acton', 'Barton', 'Barlow Collins Traders', 'Est est minima dolo', 'Dolor proident solu', 'Aliqua Iste consequ', 'Quis qui vel eu qui', 'Nemo voluptatibus iu', '+1 (803) 611-4151', 'tupofexir@mailinator.com', '2023-12-01 02:24:42', '2023-12-01 02:24:42'),
 (26, 4, 26, 'Shana', 'Morgan', 'Avila Mann Associates', 'Et mollit neque dolo', 'Sunt facilis molesti', 'Voluptatem similiqu', 'Et cupiditate nesciu', 'Nulla quisquam susci', '+1 (787) 678-8785', 'nynopud@mailinator.com', '2023-12-01 02:26:53', '2023-12-01 02:26:53'),
-(27, 4, 27, 'Indira', 'Foley', 'Holman and Mathews Plc', 'Mollitia est exercit', 'Dolores quas animi', 'Quos optio a accusa', 'Exercitation asperna', 'Irure ex cum ullam e', '+1 (558) 848-5474', 'hajyvy@mailinator.com', '2023-12-01 04:04:30', '2023-12-01 04:04:30');
+(27, 4, 27, 'Indira', 'Foley', 'Holman and Mathews Plc', 'Mollitia est exercit', 'Dolores quas animi', 'Quos optio a accusa', 'Exercitation asperna', 'Irure ex cum ullam e', '+1 (558) 848-5474', 'hajyvy@mailinator.com', '2023-12-01 04:04:30', '2023-12-01 04:04:30'),
+(28, 4, 28, 'Sydney', 'Chase', 'Kline and Salinas Co', 'Iste eligendi dolore', 'Numquam sequi est vo', 'Mollit consequat Ac', 'Voluptas excepteur q', 'Delectus do ipsum c', '+1 (545) 508-4148', 'luwuwuwyfe@mailinator.com', '2023-12-03 22:49:13', '2023-12-03 22:49:13');
 
 -- --------------------------------------------------------
 
@@ -381,7 +417,8 @@ INSERT INTO `order_details` (`id`, `user_id`, `order_id`, `product_id`, `product
 (29, 4, 24, 4, 'New Model Camera', '90', '1', '90', '2023-12-01 02:18:16', '2023-12-01 02:18:16'),
 (30, 4, 25, 4, 'New Model Camera', '90', '1', '90', '2023-12-01 02:24:42', '2023-12-01 02:24:42'),
 (31, 4, 26, 4, 'New Model Camera', '90', '1', '90', '2023-12-01 02:26:53', '2023-12-01 02:26:53'),
-(32, 4, 27, 4, 'New Model Camera', '90', '1', '90', '2023-12-01 04:04:30', '2023-12-01 04:04:30');
+(32, 4, 27, 4, 'New Model Camera', '90', '1', '90', '2023-12-01 04:04:30', '2023-12-01 04:04:30'),
+(33, 4, 28, 4, 'New Model Camera', '90', '1', '90', '2023-12-03 22:49:13', '2023-12-03 22:49:13');
 
 -- --------------------------------------------------------
 
@@ -433,7 +470,8 @@ INSERT INTO `order_ship_addresses` (`id`, `user_id`, `order_id`, `f_name`, `l_na
 (24, 4, 24, 'Delilah', 'Kline', 'Sellers Rhodes Trading', 'Laboris esse elit m', 'Voluptate aut volupt', 'Eos in ut temporibus', 'Accusantium eum dolo', 'Nesciunt sit iure v', '+1 (203) 995-9799', 'gazinyxami@mailinator.com', '2023-12-01 02:18:16', '2023-12-01 02:18:16'),
 (25, 4, 25, 'Dakota', 'Brewer', 'Tanner Kirkland Plc', 'Temporibus non eum o', 'Molestiae numquam il', 'Qui obcaecati et qui', 'Nobis ut libero dign', 'Eveniet voluptate i', '+1 (776) 992-7289', 'dibife@mailinator.com', '2023-12-01 02:24:42', '2023-12-01 02:24:42'),
 (26, 4, 26, 'Charlotte', 'Woods', 'Park Butler Plc', 'Voluptas dignissimos', 'Odio quia aliquid am', 'Est ratione et quam', 'In autem minim fugit', 'Sint quam reiciendis', '+1 (335) 624-4924', 'myde@mailinator.com', '2023-12-01 02:26:53', '2023-12-01 02:26:53'),
-(27, 4, 27, 'Indira', 'Foley', 'Holman and Mathews Plc', 'Mollitia est exercit', 'Dolores quas animi', 'Quos optio a accusa', 'Exercitation asperna', 'Irure ex cum ullam e', '+1 (558) 848-5474', 'hajyvy@mailinator.com', '2023-12-01 04:04:30', '2023-12-01 04:04:30');
+(27, 4, 27, 'Indira', 'Foley', 'Holman and Mathews Plc', 'Mollitia est exercit', 'Dolores quas animi', 'Quos optio a accusa', 'Exercitation asperna', 'Irure ex cum ullam e', '+1 (558) 848-5474', 'hajyvy@mailinator.com', '2023-12-01 04:04:30', '2023-12-01 04:04:30'),
+(28, 4, 28, 'Sydney', 'Chase', 'Kline and Salinas Co', 'Iste eligendi dolore', 'Numquam sequi est vo', 'Mollit consequat Ac', 'Voluptas excepteur q', 'Delectus do ipsum c', '+1 (545) 508-4148', 'luwuwuwyfe@mailinator.com', '2023-12-03 22:49:13', '2023-12-03 22:49:13');
 
 -- --------------------------------------------------------
 
@@ -528,8 +566,8 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `img`, `color`, `status`, `created_at`, `updated_at`) VALUES
-(2, 1, 'http://127.0.0.1:8000/admin/img/product/1562026947_camera3.png', 'White', 'Active', '2023-11-21 23:05:31', '2023-11-22 01:03:19'),
-(4, 4, 'http://127.0.0.1:8000/admin/img/product/1562026947_camera3.png', 'White', 'Active', '2023-11-21 23:05:31', '2023-11-22 01:03:19');
+(2, 1, 'http://127.0.0.1:8000/admin/img/product/1788052108_1562026947_camera3.png', 'White', 'Active', '2023-11-21 23:05:31', '2023-12-03 22:39:22'),
+(4, 4, 'http://127.0.0.1:8000/admin/img/product/1428689578_1562026947_camera3.png', 'White', 'Active', '2023-11-21 23:05:31', '2023-12-03 23:07:49');
 
 -- --------------------------------------------------------
 
@@ -547,6 +585,13 @@ CREATE TABLE `ratings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `star_rating`, `comment`, `status`, `created_at`, `updated_at`) VALUES
+(2, 4, 4, 5, 'Good', 'Active', '2023-12-04 00:12:03', '2023-12-04 00:12:03');
 
 -- --------------------------------------------------------
 
@@ -631,7 +676,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `mobile`, `password`, `deleted_at`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'admin@gmail.com', NULL, NULL, '$2y$12$jt6Sc70ZM/ESILBltFgL1.kOKfGXoulEFSm9enXMmcz7FhYLS5aJm', NULL, NULL, NULL, '2023-11-20 04:05:14', '2023-11-21 01:45:56'),
 (2, 'Safikul Islam', 'safikul@gmail.com', NULL, '9647088307', '$2y$12$mNPxR9wSdt83rC07Vmqdwu1AFAHR7KjpUaSq2OhJTMrvhNkKjXC8C', NULL, 'Active', NULL, '2023-11-20 04:07:58', '2023-11-21 01:38:19'),
-(4, 'Safikul', 'safikul1@gmail.com', NULL, '0123456789', '$2y$12$YxctVagwdkIRe4TdOm8M9.ctNZohAKXoEz6ppJpjxIRB7LvS7B3nu', NULL, 'Active', NULL, '2023-11-20 23:22:45', '2023-11-21 06:52:25'),
+(4, 'Safikul', 'safikul1@gmail.com', NULL, '0123456789', '$2y$12$GkLrXRCdJxc0E.jpqsOdO.KHNTSLqXJP/lwbe0BUWlPDbAe3AF6YG', NULL, 'Active', NULL, '2023-11-20 23:22:45', '2023-12-01 05:09:55'),
 (5, 'testtes', 'teste@gmail.com', NULL, '9123456789', '$2y$12$L3e8Pb9sZhqt369APQS14uubQzcoh5obt8/LXNdb7EsnOtutdVRc2', NULL, 'Active', NULL, '2023-11-21 01:12:30', '2023-11-21 01:12:30'),
 (6, 'Safikul', 'safikul12@gmail.com', NULL, '0123459789', '$2y$12$2N25JEhwX5o2r93vackBl.yUrMc.eKpIUJxmsJNASatyPRS59f2e2', NULL, 'Active', NULL, '2023-11-22 04:27:43', '2023-11-22 04:27:43'),
 (7, 'Safikul', 'safikul22@gmail.com', NULL, '2012548741', '$2y$12$3jSOJvmUxaI7uQKfWbCoBOaFKuth10nvDf2d6kAMBdehZFPSU0wpq', NULL, 'Active', NULL, '2023-11-24 01:30:40', '2023-11-24 01:30:40');
@@ -656,6 +701,12 @@ CREATE TABLE `wishlists` (
 --
 
 --
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `carts`
 --
 ALTER TABLE `carts`
@@ -668,6 +719,14 @@ ALTER TABLE `carts`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `compares`
+--
+ALTER TABLE `compares`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `compares_user_id_foreign` (`user_id`),
+  ADD KEY `compares_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `contacts`
@@ -826,16 +885,28 @@ ALTER TABLE `wishlists`
 --
 
 --
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `compares`
+--
+ALTER TABLE `compares`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `contacts`
@@ -859,31 +930,31 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `order_billing_addresses`
 --
 ALTER TABLE `order_billing_addresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `order_ship_addresses`
 --
 ALTER TABLE `order_ship_addresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -913,7 +984,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -937,7 +1008,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables
@@ -949,6 +1020,13 @@ ALTER TABLE `wishlists`
 ALTER TABLE `carts`
   ADD CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   ADD CONSTRAINT `carts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `compares`
+--
+ALTER TABLE `compares`
+  ADD CONSTRAINT `compares_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `compares_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `coupons`

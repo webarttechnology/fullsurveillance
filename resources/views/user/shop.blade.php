@@ -59,9 +59,15 @@
                                             <button type="button" class="product-action-btn action-btn-wishlist {{ $wishlistCheck  ? 'active-wishlist' : '' }}" data-id="{{ $item->id }}">
                                                 <i class="icon-heart"></i>
                                             </button>
-                                            <button type="button" class="product-action-btn action-btn-compare" data-bs-toggle="modal" data-bs-target="#action-CompareModal">
+                                            {{-- <button type="button" class="product-action-btn action-btn-compare" data-bs-toggle="modal" data-bs-target="#action-CompareModal">
                                                 <i class="icon-shuffle"></i>
+                                            </button> --}}
+
+
+                                            <button type="button" class="product-action-btn action-btn-compare" data-id="{{ $item->id }}">
+                                                        <i class="icon-shuffle"></i>
                                             </button>
+
                                             <button type="button" class="product-action-btn action-btn-quick-view"  data-id="{{ $item->id }}">
                                                 <i class="icon-magnifier"></i>
                                             </button>
@@ -231,6 +237,35 @@
             // console.log(url);
             window.location = url;
         });
+
+        $(document).on('click', '.action-btn-compare', function(e) {
+        
+        var btnAction = $(this);
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/add-comparelist',
+            data: {
+                id: $(this).data('id')
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                if (data.status == 'success') {
+                    toastr.success(data.msg);
+                    window.location.href = '/compare';
+                } else if (data.status == 'error') {
+                    toastr.error(data.msg);
+                }
+            },
+        });
+    });
+
+
+
+
     });
 </script>
 @endsection

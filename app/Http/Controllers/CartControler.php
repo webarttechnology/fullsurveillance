@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Compare;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartControler extends Controller
 {
@@ -124,6 +126,47 @@ class CartControler extends Controller
 
     }
 
+
+    public function compareProduct()
+    {
+        // $item = Compare::where('user_id',Auth::user()->id)->get();
+        $item = Compare::with('product')->where('user_id',Auth::user()->id)->get();
+        return view('user.compareProduct',compact('item'));
+    }
+
+
+    public function add_comparelist(Request $request)
+    {
+    // dd($request->id);
+        try {
+        $checkdata = Compare::where('user_id',Auth::user()->id)->where('product_id',$request->id)->first();
+        if($checkdata==null){
+        $existingComparisonsCount = Compare::where('user_id', Auth::user()->id)->count();
+        if ($existingComparisonsCount < 3) {
+        $savecompare = new Compare();
+        $savecompare->user_id = Auth::id();
+        $savecompare->product_id = $request->id;
+        $savecompare->save();
+        }
+        }
+        return response()->json(['status' => 'success', 'msg' => 'Add to Compared List']);
+        } catch (\Throwable $th) {
+        return response()->json(['status' => 'error', 'msg' => 'Server error please try again!']);
+        }
+
+    }
+
+    public function remove_comparelist($id)
+    {
+        $removedata = Compare::where('user_id',Auth::user()->id)->where('id',$id)->first();
+        $removedata->delete();
+        $checkindex = Compare::where('user_id',Auth::user()->id)->first();
+        if($checkindex==null){
+            return redirect(url('/'));
+        }else{
+            return back();
+        }
+    }
 
     
 

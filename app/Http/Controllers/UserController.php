@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Ratings;
 use App\Models\Category;
 use App\Mail\ContactMail;
+use App\Models\Blog;
 use App\Models\OrderDetail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -335,6 +336,26 @@ class UserController extends Controller
     {
         $orderdetail = OrderDetail::where('user_id',Auth::user()->id)->where('order_id',$request->id)->get();
         return view('user.data.allproduct-list', compact('orderdetail'))->render();
+    }
+
+    public function blog(){
+
+        $blog = Blog::where('status', 'Active')->paginate(10);
+
+        return view('user.blog', compact('blog'));
+    } 
+
+    
+
+    public function blog_detail($slug){
+
+        $blog = Blog::where('status', 'Active')->where('slug', $slug)->first();
+
+        if( $blog  == null){
+            return Redirect::to('/');
+        }
+
+        return view('user.blog-detail', compact('blog'));
     }
     
 

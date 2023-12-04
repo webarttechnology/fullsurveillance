@@ -1,4 +1,4 @@
-@section('title', 'Product Add | full Surveilance')
+@section('title', 'Blog Edit | full Surveilance')
 @extends('admin.master.layout')
 @section('content')
 <style>
@@ -11,9 +11,9 @@
     <div class="content">
         <div class="breadcrumb-wrapper breadcrumb-contacts">
             <div>
-                <h1>Product Add</h1>
+                <h1>Blog Add</h1>
                 <p class="breadcrumbs"><span><a href="{{ url('admin/dashboard') }}">Home</a></span>
-                    <span><i class="mdi mdi-chevron-right"></i></span>Add
+                    <span><i class="mdi mdi-chevron-right"></i></span>Edit
                 </p>
             </div>
             <div>
@@ -25,59 +25,48 @@
                 <div class="col-lg-12">
                     <div class="profile-content-right profile-right-spacing py-5">
                         <ul class="nav nav-tabs px-3 px-xl-5 nav-style-border" id="myProfileTab" role="tablist">
-                            <li><a href="{{ route('product.index') }}">All Product</a></li>
+                            <li><a href="{{ route('blog.index') }}">All Blog</a></li>
                         </ul>
                         <div class="tab-content px-3 px-xl-5" id="myTabContent">
                             <div class="tab-pane fade show active" id="settings" role="tabpanel"
                                 aria-labelledby="settings-tab">
                                 <div class="tab-pane-content mt-5">
-                                    <form action="{{ route('product.store') }}" method="post" class="save" enctype="multipart/form-data">
+                                    <form action="{{ route('blog.update', $blog->id) }}" method="post" class="save" enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="firstName">Category Name</label>
-                                                    <select name="category" class="form-control category">
-                                                        <option value="">Select category</option>
-                                                        @foreach (App\Models\Category::all() as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="addSubcategory"></div>
+                                           
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="firstName">Name</label>
-                                                    <input type="text" name="name" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="firstName">Actual Price</label>
-                                                    <input type="text" name="actual_price" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="firstName">Discount Price</label>
-                                                    <input type="text" name="discount_price" class="form-control">
+                                                    <input type="text" name="name" class="form-control" value="{{ $blog->name }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label for="images">Image</label>
+                                                    <input type="file" class="form-control" id="images" name="image">
+                                                    <input type="hidden" name="old_image" value="{{ $blog->img }}">
+                                                </div>
+                                                @if ($blog->img)
+                                                  <div class="mb-3">
+                                                      <img src="{{ url($blog->img) }}" width="100" alt="image">
+                                                  </div>
+                                                @endif
+                                               </div>
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Description</label>
-                                                    <textarea name="desc" class="form-control" id="editor" ></textarea>
+                                                    <textarea name="desc" class="form-control" id="editor" >{{ $blog->desc }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                             <div class="form-group mb-4">
                                                 <label for="status">Status</label>
                                                 <select name="status" id="status" class="form-control">
-                                                    <option value="">Select Status</option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Inactive">Inactive</option>
-                                                </select>
+                                                    <option value="Active" @if($blog->status == "Active") selected @endif>Active</option>
+                                                    <option value="Inactive" @if($blog->status == "Inactive") selected @endif>Inactive</option>
+                                            </select>
                                             </div>
                                           </div>
                                         </div>
