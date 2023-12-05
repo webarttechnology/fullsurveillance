@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->softDeletes(); /// Optional
             $table->enum('status', ['Active', 'Inactive']);
+            $table->enum('has_verified', ['Yes', 'No'])->default('No');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -35,11 +35,19 @@ Route::controller(UserController::class)->group(function () {
 
     Route::get('/login-register', 'login_register')->name('login');
     Route::post('/register-action', 'register_action');
+    Route::get('/verified-email/{email}', 'verifiedEmail');
     Route::post('/login-action', 'login_action');
     Route::post('/get-product-view', 'get_product_view');
     Route::post('/contact-send', 'contact_send');
     Route::get('/blog', 'blog');
     Route::get('/blog-detail/{slug}', 'blog_detail');
+
+    Route::get('/forgot-password', 'forgotPassword');
+    Route::post('/password/email', 'sendresetLinkemail');
+    Route::get('/password/resetdata', 'showResetForm');  
+    Route::post('/password/reset', 'resetPassword');
+
+
 
     Route::middleware(['auth', 'prevent-back-history'])->group(function () {
         Route::get('/logout', 'logout');

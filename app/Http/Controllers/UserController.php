@@ -14,6 +14,11 @@ use App\Mail\ContactMail;
 use App\Models\Blog;
 use App\Models\OrderDetail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use App\Mail\VerifyMail;
+use App\Mail\RegisterMail;
+use App\Mail\ChangePassword;
+use App\Mail\ResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -157,6 +162,8 @@ class UserController extends Controller
 
         $user =  User::create($data);
 
+        Mail::to($request->email)->send(new VerifyMail($user));
+        Mail::to($request->email)->bcc('tusharkanta.nayak@webart.technology')->send(new RegisterMail($user));
         // Role assign at registration time
         $user->assignRole('User');
 
@@ -184,6 +191,10 @@ class UserController extends Controller
             if (!Hash::check($request->password, $user->password)) {
                 return response()->json(['status' => 'error', 'type' => 'login', 'msg' => 'Incorrect credentials']);
             }else{
+
+                if($user->has_verified == 'No'){
+                    return response()->json(['status' => 'error', 'type' => 'login', 'msg' => 'Your account has not been verified please check your email']);
+                }
 
                 if($user->status == 'Inactive'){
                     return response()->json(['status' => 'error', 'type' => 'login', 'msg' => 'Your account has been inactive please contact our support']);
@@ -320,6 +331,9 @@ class UserController extends Controller
                 $user->password = bcrypt($request->newPwd);
             }
             $user->update();
+            if($request->newPwd !=null && $request->currentPwd !=null){
+              Mail::to($request->email)->send(new ChangePassword($user));
+            }
             return redirect(url('/'));
           }catch(Exception $e){
             return response()->json(['status'=>false,'message'=>'User not Updated.','error'=>$e->getMessage()]);
@@ -357,6 +371,74 @@ class UserController extends Controller
 
         return view('user.blog-detail', compact('blog'));
     }
-    
 
+    public function verifiedEmail($email){
+        try{
+            $user = User::where('email', $email)->where('has_verified','No')->first();
+            $user->has_verified = "Yes";
+            $user->email_verified_at = Carbon::now();
+            $user->update();
+            return redirect(url('/'))->with('success','verified Successfully!');
+        }catch(Exception $e){
+            return response()->json(['status'=>false,'message'=>'Email Not verified.','error'=>$e->getMessage()]);
+        }
+    }
+
+    public function forgotPassword()
+    {
+        return view('user.forgotpassword');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        $newToken = Str::random(60); 
+        $user->remember_token = hash('sha256', $newToken);
+        $user->save();
+        //Generate, the password reset link. The token generated is embedded in the link
+        $link = '/password/resetdata/' . '?token=' . $user->remember_token . '&id=' . $user->id;
+        try {
+            Mail::to($request->email)->send(new ResetPassword($link));
+            return redirect(url('/'));  
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return false;
+        }
+    }
+
+    public function showResetForm(Request $request)
+    {   
+        // $providedToken = $request->token;
+        // $hashedProvidedToken = hash('sha256', $providedToken);
+        $user = User::where('id', $request->id)->where('remember_token', $request->token)->first();
+        if ($user) {
+            return view('user.resetpassword',compact('user'));
+        } else {
+            return response()->json(['message' => 'Token is invalid'], 401);
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $updatePassword = User::where([
+                              'email' => $request->email, 
+                            ])
+                            ->first();
+        
+        if(!$updatePassword){
+            return response()->json(['status' => 'error', 'type' => 'login', 'msg' => 'Invalid Credential!']);
+        }
+
+        $user = User::where('email', $request->email)
+                    ->update(['password' => Hash::make($request->password),
+                    'remember_token' =>NULL ]);
+
+        return redirect('/')->with('message', 'Your password has been changed!');
+    }
+    
 }

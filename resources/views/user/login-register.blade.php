@@ -2,6 +2,15 @@
 @section('meta_desc', 'Login Registration | full Surveilance')
 @extends('user.master.layout')
 @section('content')
+<style>
+    .spinner-border {
+         top: 10px;
+         right: 10px;
+         height: 1rem;
+         width: 1rem;
+
+    }
+</style>
 <main class="main-content">
     <!--== Start Page Header Area Wrapper ==-->
     {{-- <div class="page-header-area">
@@ -56,7 +65,7 @@
                                 <div class="login-register-input">
                                     <input type="password" name="password" placeholder="Password">
                                     <div class="forgot">
-                                        <a href="#">Forgot?</a>
+                                        <a href="{{url('/forgot-password')}}">Forgot?</a>
                                     </div>
                                     <span class="login-password-error text-danger"></span>
                                 </div>
@@ -106,7 +115,11 @@
                                     <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="login-register.html">privacy policy.</a></p>
                                 </div> --}}
                                 <div class="btn-register">
-                                     <button type="submit" class="btn-register-now">Register</button>
+                                     <button type="submit"  class="btn-register-now position-relative">Register
+                                        <div class="icon spinner-border position-absolute d-none" role="status">
+                                            <span class="sr-only mt-2">Loading...</span>
+                                        </div>
+                                     </button>
                                 </div>
                             </form>
 
@@ -156,7 +169,13 @@
                 type: 'POST',
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
+                beforeSend: function() { 
+                    $('.spinner-border').removeClass('d-none');
+                    $(".btn-register-now").prop('disabled', true); // disable button
+                },
                 success:function(data){
+                    $(".btn-register-now").prop('disabled', false); 
+                    $('.spinner-border').addClass('d-none');
 
                     if(data.status == 'success'){
 
@@ -188,6 +207,9 @@
                     }
                 },
                 error:function(data){
+
+                    $(".btn-register-now").prop('disabled', false); 
+                    $('.spinner-border').addClass('d-none');
 
                     // console.log(data.responseJSON.errors);
 
